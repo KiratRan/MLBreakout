@@ -34,7 +34,7 @@ public class BrickProperties : MonoBehaviour
     }
 
     // after something collides with the brick
-    void OnCollisionExit2D(Collision2D col){
+    void OnCollisionEnter2D(Collision2D col){
 
     	// if the object that collided has the same name as our ball, then disable
     	// the collider for the brick and stop displaying it on screen
