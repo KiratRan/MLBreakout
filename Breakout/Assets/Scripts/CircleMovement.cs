@@ -17,13 +17,22 @@ public class CircleMovement : MonoBehaviour
 
     // this is the game object that has the TextMeshProUGUI component that displays the number of lives
     // the player has left; This is set in Unity inspector for the ball
-    public GameObject livesObject;
+    public GameObject myLives;
+
+
+    public GameObject myBricks;
+
+
+    public GameObject myScore;
 
 
 
     // this is the TextMeshProUGUI component that will be used to update the number of lives;
-    // it will automatically be set when start() is reun
+    // it will automatically be set when start() is run
     private TextMeshProUGUI livesUGUI;
+
+
+    private TextMeshProUGUI scoreUGUI;
 
 	// create variables for accessing components of the ball; these components will be set in
     // the start() function and can then be used to modify these components of the ball during runtime
@@ -37,8 +46,8 @@ public class CircleMovement : MonoBehaviour
 	private const float startingYPos = -1.25f;
 
 	// the minimum and maximum x-values that the ball can start in; can be changed if needed
-	private const float minX = -2.0f;
-	private const float maxX = 2.0f;
+	private const float minX = -1.0f;
+	private const float maxX = 1.0f;
 
 	// this is used to keep track if the ball needs to be reset to a starting position and then give the
     // ball a velocity; this is used when the player hits space/clicks to start playing with a new ball
@@ -90,7 +99,9 @@ public class CircleMovement : MonoBehaviour
     	rb = gameObject.GetComponent<Rigidbody2D>();
 
         // get the TextMeshProUGUI component of the lives game object
-        livesUGUI = livesObject.GetComponent<TextMeshProUGUI>();
+        livesUGUI = myLives.GetComponent<TextMeshProUGUI>();
+
+        scoreUGUI = myScore.GetComponent<TextMeshProUGUI>();
 
         // get the spriterenderer component of the ball and do not render the ball, so that it isn't visible on screen
         sr = gameObject.GetComponent<SpriteRenderer>();
@@ -149,17 +160,6 @@ public class CircleMovement : MonoBehaviour
     		rb.velocity = new Vector2(newXVel, newYVel);
     		paddleCollision = false;
     	}
-/*
-    	// get the direction and 
-    	else{
-
-    		rb.velocity = speed*speedFactor*rb.velocity.normalized;
-
-
-    		// Debug.Log("mag velocity: " + PythagoreanC(rb.velocity.x, rb.velocity.y));
-    		// Debug.Log("Y velocity: " + rb.velocity.y);
-    	}
-*/
     }
 
 
@@ -168,7 +168,6 @@ public class CircleMovement : MonoBehaviour
 
         // if the name of the colliding object matches the name of our paddle, then enter
     	if(col.collider.name == myPaddle.name){
-    		paddleCollision = true;
 
     		// get the location of the ball
     		Vector2 ballLocation;
@@ -178,9 +177,44 @@ public class CircleMovement : MonoBehaviour
     		Vector2 paddleLocation;
     		paddleLocation = CurrentPosition(myPaddle);
 
-    		// get the velocity of the ball
-    		Vector2 ballVelocity = new Vector2();
-    		ballVelocity = rb.velocity;
+            // use the box collider component of the paddle to get its height
+            float paddleHeight = myPaddle.GetComponent<BoxCollider2D>().bounds.size.y;
+
+            // get the velocity of the ball
+            Vector2 ballVelocity = new Vector2();
+            ballVelocity = rb.velocity;
+
+
+            // get the current score value as a long from the scoreUGUI
+            long curVal = Int64.Parse(scoreUGUI.text);
+
+            // if player reached max score for a set of bricks, then reset there are no more bricks and they need to be
+            // reset
+            if(curVal % 448 == 0 && curVal != 0){
+
+
+                // get the BoxCollider2D and SpriteRenderers of all of the Bricks
+                Component [] brickColliders = myBricks.GetComponentsInChildren(typeof(BoxCollider2D));
+                Component [] brickRenderers = myBricks.GetComponentsInChildren(typeof(SpriteRenderer));
+
+                // for each brick, enable the SpriteRenderer and the BoxCollider
+                for(int i = 0; i < brickColliders.Length;i++){
+
+                    ((BoxCollider2D)brickColliders[i]).enabled = true;
+                    ((SpriteRenderer)brickRenderers[i]).enabled = true;
+                }
+            }
+
+
+            // if the center of the ball is lower than the top surface of the paddle, then ball should be unaffected
+            // and will not have unique bounce off the top surface of the paddle
+            if(ballLocation.y < (paddleLocation.y + paddleHeight / 2)){
+
+                return;
+            }
+
+            // set paddleCollision to true so that FixedUpdate() will change the velocity of the ball
+            paddleCollision = true;
 
     		// calculate the magnitude of the velocity of the ball using pythagorean theorum
     		float ballVelMag = PythagoreanC(ballVelocity.x, ballVelocity.y);
@@ -188,6 +222,16 @@ public class CircleMovement : MonoBehaviour
     		// calculate the distance from the center of the ball to the center of the paddle
     		float ballToPaddle = ballLocation.x - paddleLocation.x;
 
+            // make sure that max ballToPaddle value is 1, so that ball does not bounce more than the
+            // expected angle to the right
+            if(ballToPaddle > 1){
+                ballToPaddle = 1;
+            }
+            // similarly make sure that the min ballToPaddle value is -1, so that ball does not bounce
+            // more than the expected angle to the left
+            else if(ballToPaddle < -1){
+                ballToPaddle = -1;
+            }
 
             // get the width of the paddle by accessing the BoxCollider2D component and getting the size of its bounds
             // in the x direction
