@@ -8,10 +8,6 @@ using TMPro;
 
 public class CircleMovement : MonoBehaviour
 {
-	// this is used to increase the speed of the ball; public variable that can be changed
-	// when all of the bricks are destroyed in a level
-	public float speedFactor = 2.0f;
-
 	// this is the paddle that the ball will interact with; set in the inspector of the ball object in Unity
 	public GameObject myPaddle;
 
@@ -19,10 +15,10 @@ public class CircleMovement : MonoBehaviour
     // the player has left; This is set in Unity inspector for the ball
     public GameObject myLives;
 
-
+    // this is the game object that contains all of the bricks that this ball is going to interact with
     public GameObject myBricks;
 
-
+    // this is the game object that contains the score that this ball is going to interact with
     public GameObject myScore;
 
 
@@ -31,7 +27,8 @@ public class CircleMovement : MonoBehaviour
     // it will automatically be set when start() is run
     private TextMeshProUGUI livesUGUI;
 
-
+    // this is the TextMeshProUGUI component of the muScore gameObject that will be used to tell
+    // if all of the bricks have been destroyed
     private TextMeshProUGUI scoreUGUI;
 
 	// create variables for accessing components of the ball; these components will be set in
@@ -41,6 +38,19 @@ public class CircleMovement : MonoBehaviour
 	private CircleCollider2D cc2d;
 
 
+
+	// these are constants used to update the speed of the ball after it hits certain bricks
+	private const float speedTwo = 1.3f;
+	private const float speedThree = 1.6f;
+	private const float speedFour = 2.0f;
+
+	// this is used to increase the speed of the ball; public variable that can be changed
+	// when all of the bricks are destroyed in a level
+	private float speedFactor = 1.0f;
+	// this is used to increase the speed of the ball after 4 and 12 bricks have been destroyed for the current ball
+	private int numBricks = 0;
+	// this is used to update the speed of the ball in the FixedUpdate() function
+	private bool updateSpeed = false;
 
 	// starting y-value of the ball; can be changed if needed
 	private const float startingYPos = -1.25f;
@@ -74,7 +84,7 @@ public class CircleMovement : MonoBehaviour
 
 
 	// speed will be the magnitude of velocity in both the x and y directions
-	private float speed = 1.0f;
+	private float speed = 2.0f;
 
 	// xDirection and yDirection are used to determine the starting velocity of the ball
 	// xDirection will randomly vary from -1 and 1, while yDirection will remain constant
@@ -160,6 +170,13 @@ public class CircleMovement : MonoBehaviour
     		rb.velocity = new Vector2(newXVel, newYVel);
     		paddleCollision = false;
     	}
+    	// if the ball needs to update the speed based on the bricks hit to increase the difficulty enter
+    	else if(updateSpeed){
+
+    		// update the velocity and reset updateSpeed to false
+    		rb.velocity = new Vector2(newXVel, newYVel);
+    		updateSpeed = false;
+    	}
     }
 
 
@@ -184,6 +201,8 @@ public class CircleMovement : MonoBehaviour
             Vector2 ballVelocity = new Vector2();
             ballVelocity = rb.velocity;
 
+            Debug.Log(PythagoreanC(rb.velocity.x, rb.velocity.y));
+
 
             // get the current score value as a long from the scoreUGUI
             long curVal = Int64.Parse(scoreUGUI.text);
@@ -191,18 +210,8 @@ public class CircleMovement : MonoBehaviour
             // if player reached max score for a set of bricks, then reset there are no more bricks and they need to be
             // reset
             if(curVal % 448 == 0 && curVal != 0){
-
-
-                // get the BoxCollider2D and SpriteRenderers of all of the Bricks
-                Component [] brickColliders = myBricks.GetComponentsInChildren(typeof(BoxCollider2D));
-                Component [] brickRenderers = myBricks.GetComponentsInChildren(typeof(SpriteRenderer));
-
-                // for each brick, enable the SpriteRenderer and the BoxCollider
-                for(int i = 0; i < brickColliders.Length;i++){
-
-                    ((BoxCollider2D)brickColliders[i]).enabled = true;
-                    ((SpriteRenderer)brickRenderers[i]).enabled = true;
-                }
+				// call the ResetBricks() function
+                ResetBricks();
             }
 
 
@@ -248,6 +257,42 @@ public class CircleMovement : MonoBehaviour
 
             // reduce the value in the livesUGUI text field by one using function
             IncreaseTMProUGUIText(livesUGUI, -1);
+    	}
+
+    	// if the ball collides with a brick, determine if the speed needs to be updated
+    	else if(col.collider.tag == "Brick" || col.collider.tag == "RedOrange Brick"){
+    		
+    		// if speedFactor is less than 2, then check if it needs to be updated; if speedFactor is already 2 then 
+    		// it cannot go any higher
+    		if(speedFactor < 2.0f){
+    			
+    			// increment the number of bricks hit by this ball
+    			numBricks++;
+
+    			// if the ball hit a red or orange brick, then increase speedFactor to 2, and 
+    			// set newXVel and newYVel to be updated in FixedUpdate()
+    			if(col.collider.tag == "RedOrange Brick"){
+    				speedFactor = speedFour;
+    				updateSpeed = true;
+    			}
+
+    			// if the ball has hit 4 bricks, then increase speedFactor to 1.3, and 
+    			// set newXVel and newYVel to be updated in FixedUpdate()
+    			else if(numBricks == 4){
+
+    				speedFactor = speedTwo;
+    				updateSpeed = true;
+    			}
+
+    			// if the ball has hit 12 bricks, then increase speedFactor to 1.6, and 
+    			// set newXVel and newYVel to be updated in FixedUpdate()
+    			else if(numBricks == 12){
+    				speedFactor = speedThree;
+    				updateSpeed = true;
+    			}
+
+    			UpdateSpeedByFactor(rb.velocity, speedFactor, ref newXVel, ref newYVel);
+    		}
     	}
     }
 
@@ -297,6 +342,20 @@ public class CircleMovement : MonoBehaviour
     // as well as reset the position and velocity of the ball. This is specific to the ball object.
     void NewBall(){
 
+    	// get the current score value as a long from the scoreUGUI
+        long curVal = Int64.Parse(scoreUGUI.text);
+
+	    // if player reached max score for a set of bricks, then reset there are no more bricks and they need to be
+        // reset
+        if(curVal % 448 == 0 && curVal != 0){
+        	// call the ResetBricks() function
+            ResetBricks();
+		}
+
+		// reset the variables for the ball's speedFactor
+		numBricks = 0;
+		speedFactor = 1.0f;
+
 	    // get a random float between -2, and 2 for the starting position
     	float startingXPos = UnityEngine.Random.Range(minX, maxX);
     	// give the ball its new position
@@ -319,7 +378,35 @@ public class CircleMovement : MonoBehaviour
     	}
 
     	// update the velocity of the ball
-    	rb.velocity = new Vector2(speed*speedFactor*xDirection, speed*speedFactor*yDirection);
+    	rb.velocity = new Vector2(speed*xDirection, speed*yDirection);
+    }
+
+
+    // This function is used to take the current speed of the ball and increase the speed based on the original speed
+    // of the ball. If the original speed of the ball(when it was first put into play) is 2 and the myFactor variable 
+    // is 2, then the new speed will be 4. The function takes in a Vector2 object that holds the current speed of the ball
+    // in the x and y direstions, a float for the factor to increase the speed by, a reference to a float to hold the
+    // new x velocity, and a reference to a float that will hold the new y velocity. The function does not return anything,
+    // but the reference variables newXSpeed and newYSpeed will be updated to hold the new speed in the x and y diections respectively.
+    void UpdateSpeedByFactor(Vector2 speedVec, float myFactor, ref float newXSpeed, ref float newYSpeed){
+
+    	// xDirect and yDirect will hold the direction the ball is travelling in; either 1 or -1
+    	int xDirect = 1;
+    	int yDirect = 1;
+
+    	// if x or y velocities are in the negative directions, then update xDirect and yDirect accordingly
+    	if(speedVec.x < 0){
+
+    		xDirect = -1;
+    	}
+    	if(speedVec.y < 0){
+
+    		yDirect = -1;
+    	}
+
+    	// calculate the new x and y velocities
+    	newXSpeed = xDirect * speed * myFactor;
+    	newYSpeed = yDirect * speed * myFactor;
     }
 
 
@@ -372,6 +459,23 @@ public class CircleMovement : MonoBehaviour
 
         return Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
     }
+
+    // This function will reset and display all of the bricks that this ball is going to interact with.
+    // The function does not have any arguments and does not return anything.
+    void ResetBricks(){
+
+    	// get the BoxCollider2D and SpriteRenderers of all of the Bricks
+        Component [] brickColliders = myBricks.GetComponentsInChildren(typeof(BoxCollider2D));
+        Component [] brickRenderers = myBricks.GetComponentsInChildren(typeof(SpriteRenderer));
+
+        // for each brick, enable the SpriteRenderer and the BoxCollider
+        for(int i = 0; i < brickColliders.Length;i++){
+
+            ((BoxCollider2D)brickColliders[i]).enabled = true;
+            ((SpriteRenderer)brickRenderers[i]).enabled = true;
+		}
+
+	}
 
 }
 

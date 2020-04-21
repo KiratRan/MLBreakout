@@ -139,6 +139,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Brick (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -237,6 +242,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Orange Brick (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
@@ -407,6 +417,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Brick (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -576,6 +591,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Brick (23)
       objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -680,6 +700,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Orange Brick (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
@@ -838,6 +863,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Brick (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -949,6 +979,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Brick (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1053,6 +1088,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Red Brick (24)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
@@ -1165,6 +1205,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Brick (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1269,6 +1314,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Orange Brick (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
@@ -1420,6 +1470,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Red Brick (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
@@ -1642,6 +1697,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Brick (24)
       objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1747,6 +1807,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Brick (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1851,6 +1916,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Red Brick (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
@@ -2091,6 +2161,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Brick (22)
       objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2318,6 +2393,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Brick (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2423,6 +2503,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Brick (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2527,6 +2612,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Orange Brick (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
@@ -2735,6 +2825,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Brick (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2839,6 +2934,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Red Brick (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
@@ -2945,6 +3045,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Brick (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3049,6 +3154,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Red Brick (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
@@ -3155,6 +3265,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Brick (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3253,6 +3368,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Orange Brick (25)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
@@ -3462,6 +3582,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Orange Brick (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
@@ -3990,6 +4115,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Brick (22)
       objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4324,6 +4454,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Orange Brick (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
@@ -4792,6 +4927,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Brick (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5001,6 +5141,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Brick (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5124,6 +5269,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Brick (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5241,6 +5391,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Brick (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5345,6 +5500,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Red Brick (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
@@ -5573,6 +5733,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Brick (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5684,6 +5849,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Brick (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5789,6 +5959,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Brick (25)
       objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5893,6 +6068,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Orange Brick (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
@@ -6217,6 +6397,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Brick (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6333,6 +6518,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Red Brick (26)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
@@ -6655,6 +6845,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Brick (26)
       objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6784,6 +6979,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Brick (20)
       objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6900,6 +7100,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Orange Brick (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
@@ -7064,6 +7269,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Brick (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7169,6 +7379,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Brick (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7273,6 +7488,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Red Brick (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
@@ -7420,6 +7640,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Red Brick (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
@@ -7642,6 +7867,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Brick (23)
       objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7851,6 +8081,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Brick (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7955,6 +8190,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Red Brick (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
@@ -8171,6 +8411,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Brick (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8275,6 +8520,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Red Brick (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
@@ -8381,6 +8631,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Brick (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8479,6 +8734,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Red Brick (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
@@ -8706,7 +8966,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b14238fb33b12c542b1bee355c00c144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedFactor: 2
   myPaddle: {fileID: 927840255}
   myLives: {fileID: 877518683}
   myBricks: {fileID: 425263249}
@@ -10103,6 +10362,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Brick
       objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10201,6 +10465,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Orange Brick
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
@@ -12697,6 +12966,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Brick
       objectReference: {fileID: 0}
+    - target: {fileID: 2104802495533465013, guid: ea00691bed5488643be664998f1f9e33,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
+      objectReference: {fileID: 0}
     - target: {fileID: 2104802495533465014, guid: ea00691bed5488643be664998f1f9e33,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12795,6 +13069,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Orange Brick
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181212894743669701, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedOrange Brick
       objectReference: {fileID: 0}
     - target: {fileID: 2181212894743669720, guid: 5da1f8dc78fe64f45ab99e8d379d7e9e,
         type: 3}
