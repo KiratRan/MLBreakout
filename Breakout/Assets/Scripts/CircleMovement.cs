@@ -71,6 +71,11 @@ public class CircleMovement : MonoBehaviour
 	// velocity after the collision
 	private bool paddleCollision = false;
 
+	// this is used to determine if the velocity of teh ball needs to be updated after it hits a wall;
+	// if the angle of the ball hitting the wall is less than minWallAngle, then the speed needs to be updated
+	// to prevent infinite wall bouncing
+	private bool wallCollision = false;
+
 
 
 	// these are the angles used to calculate the ball's updated velocity after it hits the paddle;
@@ -80,6 +85,11 @@ public class CircleMovement : MonoBehaviour
     // they are both displayed in radians since, the Mathf class in unity uses radians
 	private const float maxAngle = 1.0f/3.5f*Mathf.PI;
 	private const float ninetyAngle = 1.0f/2.0f*Mathf.PI;
+
+	// this defines the minimum angle that the ball can bounce off the wall at
+	// this will prevent the ball from bouncing back and forth between walls infinitely
+	private const float minWallAngle = 1.0f/18.0f*Mathf.PI;
+
 
 
 
@@ -176,6 +186,14 @@ public class CircleMovement : MonoBehaviour
     		// update the velocity and reset updateSpeed to false
     		rb.velocity = new Vector2(newXVel, newYVel);
     		updateSpeed = false;
+    	}
+
+    	// the ball hit the wall with an angle less than minWallAngle; the velocity of the ball is
+    	// updated so the ball does not bounce infinitely
+    	else if(wallCollision){
+
+    		rb.velocity = new Vector2(newXVel, newYVel);
+    		wallCollision = false;
     	}
     }
 
@@ -292,6 +310,38 @@ public class CircleMovement : MonoBehaviour
     			}
 
     			UpdateSpeedByFactor(rb.velocity, speedFactor, ref newXVel, ref newYVel);
+    		}
+    	}
+
+    	// determine if the ball hit off the wall at an angle less than minWallAngle radians
+    	else if(col.collider.tag == "Wall"){
+
+    		// calculate the current wall angle using trigonometry and the current x and y velocity of the ball
+    		float curAngle = Mathf.Tan(rb.velocity.y / rb.velocity.x);
+    		
+    		// if the curAngle is between -minWallAngle and minWallAngle, then the x and y velocities will be updated
+    		if(curAngle < minWallAngle && curAngle > minWallAngle*left){
+
+  				// set wallCollision variable to true so that the x and y velocities are updated in FixedUpdate()
+    			wallCollision = true;
+
+    			// get the magnitude of the velocity for the ball
+    			float curVel = PythagoreanC(rb.velocity.y, rb.velocity.x);
+
+    			// calculate the new new x and y velocities of the ball from the minWallAngle and the current velocity
+    			// of the ball
+    			newXVel = Mathf.Cos(minWallAngle) * curVel;
+    			newYVel = Mathf.Sin(minWallAngle) * curVel;
+
+    			// make sure that the signs of newXVel and newYVel are updated according to the
+    			// direction that the ball is bouncing off the wall
+    			if(rb.velocity.y < 0){
+    				newYVel *= left;
+    			}
+
+    			if(rb.velocity.x >= 0){
+    				newXVel *= left;
+    			}
     		}
     	}
     }
