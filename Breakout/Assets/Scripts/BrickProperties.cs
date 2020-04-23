@@ -15,6 +15,8 @@ public class BrickProperties : MonoBehaviour
     public GameObject myBall;
     public GameObject scoreObject;
     public int points;
+    public static int numBricksDestroyed;
+    public static long totalPoints;
 
     // this is the variable that will hold the TextMeshProUGUI and allows us
     // to access and change the text displayed
@@ -25,6 +27,10 @@ public class BrickProperties : MonoBehaviour
     {
     	// get the component of the current score object for the ugui
     	ugui = scoreObject.GetComponent<TextMeshProUGUI>();
+
+        // reset cumulative scores
+        numBricksDestroyed = 0;
+        totalPoints = 0;
     }
 
     // Update is called once per frame
@@ -46,7 +52,7 @@ public class BrickProperties : MonoBehaviour
 
     		// call function to update the score on the screen appropriately
     		IncreaseTMProUGUIText(ugui, points);
-    		
+            numBricksDestroyed++;
     	}
     }
 
@@ -65,5 +71,6 @@ public class BrickProperties : MonoBehaviour
 
     	// update the text for the textmeshprougui with the new score
     	textUGUI.text = newVal.ToString();
+        totalPoints = newVal;
     }
 }

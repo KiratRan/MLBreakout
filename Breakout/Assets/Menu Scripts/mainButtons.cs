@@ -26,7 +26,7 @@ public class mainButtons : MonoBehaviour
                 SceneManager.LoadScene("Other Menu");
                 break;
             case 4:
-                //exit
+                Application.Quit();
                 break;
         }
     }

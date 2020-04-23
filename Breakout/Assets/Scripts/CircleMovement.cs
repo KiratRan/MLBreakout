@@ -105,8 +105,14 @@ public class CircleMovement : MonoBehaviour
     // Update is called once per frame and should be used to get button entry
     void Update()
     {
-    	// check if the space bar or mouse 1 button have been pressed down. if either one has been pressed then enter
-        if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0)){
+        //Load game over screen if lives reach 0, or somehow less than
+        if(Int32.Parse(livesUGUI.text) <= 0)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Game Over");
+        }
+
+    	// check if the space bar or mouse 1 button have been pressed down while game is unpaused. if either one has been pressed then enter
+        if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0) && pauseScript.paused == false){
 
             // check to see if the ball is currently rendered(in play). if it is, then do not add a new ball
             if(!gameObject.GetComponent<SpriteRenderer>().enabled){
