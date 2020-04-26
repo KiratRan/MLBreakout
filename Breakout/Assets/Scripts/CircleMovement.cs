@@ -21,6 +21,10 @@ public class CircleMovement : MonoBehaviour
     // this is the game object that contains the score that this ball is going to interact with
     public GameObject myScore;
 
+    // this is a variable to have balls spawn in constantly if it is set to true, or have balls only
+    // spawn in when the player presses spacebar or clicks on the left mouse
+    public bool infiniteBalls = false;
+
 
 
     // this is the TextMeshProUGUI component that will be used to update the number of lives;
@@ -88,7 +92,7 @@ public class CircleMovement : MonoBehaviour
 
 	// this defines the minimum angle that the ball can bounce off the wall at
 	// this will prevent the ball from bouncing back and forth between walls infinitely
-	private const float minWallAngle = 1.0f/18.0f*Mathf.PI;
+	private const float minWallAngle = 1.0f/36.0f*Mathf.PI;
 
 
 
@@ -136,21 +140,36 @@ public class CircleMovement : MonoBehaviour
     // Update is called once per frame and should be used to get button entry
     void Update()
     {
-    	// check if the space bar or mouse 1 button have been pressed down. if either one has been pressed then enter
-        if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0)){
+    	// if player needs to spawn a ball, then enter
+    	if(!infiniteBalls){
+	    	// check if the space bar or mouse 1 button have been pressed down. if either one has been pressed then enter
+	        if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0)){
 
-            // check to see if the ball is currently rendered(in play). if it is, then do not add a new ball
+	            // check to see if the ball is currently rendered(in play). if it is, then do not add a new ball
+	            if(!gameObject.GetComponent<SpriteRenderer>().enabled){
+
+	                // check to see if the player has more than 0 lives. If they do, then reset the ball. If not,
+	                // then do not reset the ball.
+	                if(Int32.Parse(livesUGUI.text) > 0){
+
+	                    // setting resetBall here to true so that FixedUpdate() can change the physics of the ball
+	                    resetBall = true;
+	                }
+	            }
+	        }
+	    }
+
+	    // else a ball will spawn in indefinitely
+	    else{
+
+	    	// check to see if the ball is currently rendered(in play). if it is, then do not add a new ball
             if(!gameObject.GetComponent<SpriteRenderer>().enabled){
-
-                // check to see if the player has more than 0 lives. If they do, then reset the ball. If not,
-                // then do not reset the ball.
-                if(Int32.Parse(livesUGUI.text) > 0){
 
                     // setting resetBall here to true so that FixedUpdate() can change the physics of the ball
                     resetBall = true;
-                }
             }
-        }
+
+	    }
     }
 
 
@@ -218,9 +237,6 @@ public class CircleMovement : MonoBehaviour
             // get the velocity of the ball
             Vector2 ballVelocity = new Vector2();
             ballVelocity = rb.velocity;
-
-            Debug.Log(PythagoreanC(rb.velocity.x, rb.velocity.y));
-
 
             // get the current score value as a long from the scoreUGUI
             long curVal = Int64.Parse(scoreUGUI.text);
@@ -316,30 +332,44 @@ public class CircleMovement : MonoBehaviour
     	// determine if the ball hit off the wall at an angle less than minWallAngle radians
     	else if(col.collider.tag == "Wall"){
 
-    		// calculate the current wall angle using trigonometry and the current x and y velocity of the ball
-    		float curAngle = Mathf.Tan(rb.velocity.y / rb.velocity.x);
-    		
-    		// if the curAngle is between -minWallAngle and minWallAngle, then the x and y velocities will be updated
-    		if(curAngle < minWallAngle && curAngle > minWallAngle*left){
+    		// get the magnitude of the speed of the ball
+    		float curSpeed = rb.velocity.magnitude;
 
-  				// set wallCollision variable to true so that the x and y velocities are updated in FixedUpdate()
+    		// calculate the minimum speed that the ball is allowed to move in the y-direction
+    		float minYSpeed = curSpeed * Mathf.Sin(minWallAngle);
+
+    		// if the y velocity is less than the minimum allowed y speed, and greater than or equal to 0
+    		if(rb.velocity.y < minYSpeed && rb.velocity.y >= 0){
+
+    			// set wall collision variable to true so that the speed is updated in the FixedUpdate function
     			wallCollision = true;
 
-    			// get the magnitude of the velocity for the ball
-    			float curVel = PythagoreanC(rb.velocity.y, rb.velocity.x);
+    			// add half of the minimum speed to the y velocity
+    			newYVel = rb.velocity.y + 0.5f*minYSpeed;
 
-    			// calculate the new new x and y velocities of the ball from the minWallAngle and the current velocity
-    			// of the ball
-    			newXVel = Mathf.Cos(minWallAngle) * curVel;
-    			newYVel = Mathf.Sin(minWallAngle) * curVel;
+    			// use the new y velocity to calculate the new x velocity
+    			newXVel = Mathf.Sqrt((curSpeed * curSpeed) - (newYVel * newYVel));
 
-    			// make sure that the signs of newXVel and newYVel are updated according to the
-    			// direction that the ball is bouncing off the wall
-    			if(rb.velocity.y < 0){
-    				newYVel *= left;
+    			// if x velocity is negative, make newXVel negative
+    			if(rb.velocity.x <= 0){
+    				newXVel *= left;
     			}
+    		}
 
-    			if(rb.velocity.x >= 0){
+    		// if the y velocity is between - minimum y speed and 0
+    		else if(rb.velocity.y > (minYSpeed*-1) && rb.velocity.y < 0){
+
+				// set wall collision variable to true so that the speed is updated in the FixedUpdate function
+    			wallCollision = true;
+
+    			// add half of the minimum speed to the y velocity
+    			newYVel = rb.velocity.y - 0.5f*minYSpeed;
+
+    			// use the newYVel and trigonometry to update the newXVel to maintain the same magnitude of speed
+    			newXVel = Mathf.Sqrt((curSpeed * curSpeed) - (newYVel * newYVel));
+
+    			// if x velocity is negative, make newXVel negative
+    			if(rb.velocity.x <= 0){
     				newXVel *= left;
     			}
     		}
