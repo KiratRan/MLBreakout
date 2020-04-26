@@ -10011,6 +10011,7 @@ MonoBehaviour:
   myLives: {fileID: 877518683}
   myBricks: {fileID: 425263249}
   myScore: {fileID: 1119065397}
+  infiniteBalls: 0
 --- !u!4 &2103935305 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8571554246220249623, guid: 5fa24774873ba394eb12c64630d3e47b,
@@ -10178,7 +10179,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.456303
+  orthographic size: 4.9881268
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

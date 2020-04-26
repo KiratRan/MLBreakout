@@ -149,24 +149,18 @@ public class CircleMovement : MonoBehaviour
 	        {
 	            UnityEngine.SceneManagement.SceneManager.LoadScene("Game Over");
 	        }
-	        
+
 	    	// check if the space bar or mouse 1 button have been pressed down. if either one has been pressed then enter
 	        if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0)){
 
-				if(pauseScript.Paused == false){
+				if(pauseScript.paused == false){
 
 		            // check to see if the ball is currently rendered(in play). if it is, then do not add a new ball
 		            if(!gameObject.GetComponent<SpriteRenderer>().enabled){
 
-		                // check to see if the player has more than 0 lives. If they do, then reset the ball. If not,
-		                // then do not reset the ball.
-		                if(Int32.Parse(livesUGUI.text) > 0){
-
 		                    // setting resetBall here to true so that FixedUpdate() can change the physics of the ball
 		                    resetBall = true;
-		                }
 		            }
-
 		        }
 	        }
 	    }
