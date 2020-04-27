@@ -6,7 +6,7 @@ public class PaddleMovement : MonoBehaviour
 {
     // public variable that can be changed by the user to set the sensitivity of the paddle
     // should be able to change in settings/controls
-	public float sens = 5.0f;
+	public float sens = 6.0f;
 
     // Start is called before the first frame update
     void Start()
