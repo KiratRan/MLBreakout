@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,8 +6,41 @@ using UnityEngine;
 using System;
 using TMPro;
 
+
 public class CircleMovement : MonoBehaviour
 {
+	// these are constants used to update the speed of the ball after it hits certain bricks
+	const float speedTwo = 1.3f;
+	const float speedThree = 1.6f;
+	const float speedFour = 2.0f;
+
+	// starting y-value of the ball; can be changed if needed
+	const float startingYPos = -1.25f;
+
+	// the minimum and maximum x-values that the ball can start in; can be changed if needed
+	const float minX = -1.0f;
+	const float maxX = 1.0f;
+
+	// these are the angles used to calculate the ball's updated velocity after it hits the paddle
+
+	// the ninetyAngle should be set at 90 degrees for current calculations to function correctly;
+	// the maxAngle is the maximum angle from 90 degrees that the ball can bounce off from the paddle(can be updated to test different angles)
+
+	// they are both displayed in radians since, the Mathf class in unity uses radians
+	const float maxAngle = 1.0f/3.5f*Mathf.PI;
+	const float ninetyAngle = 1.0f/2.0f*Mathf.PI;
+
+	// this defines the minimum angle that the ball can bounce off the wall at
+	// this will prevent the ball from bouncing back and forth between walls infinitely
+	const float minWallAngle = 1.0f/36.0f*Mathf.PI;
+
+	// constant values to change x velocity to either the left or the right
+	const int left = -1;
+	const int right = 1;
+
+
+
+
 	// this is the paddle that the ball will interact with; set in the inspector of the ball object in Unity
 	public GameObject myPaddle;
 
@@ -41,12 +74,7 @@ public class CircleMovement : MonoBehaviour
 	private SpriteRenderer sr;
 	private CircleCollider2D cc2d;
 
-
-
-	// these are constants used to update the speed of the ball after it hits certain bricks
-	private const float speedTwo = 1.3f;
-	private const float speedThree = 1.6f;
-	private const float speedFour = 2.0f;
+	
 
 	// this is used to increase the speed of the ball; public variable that can be changed
 	// when all of the bricks are destroyed in a level
@@ -56,12 +84,7 @@ public class CircleMovement : MonoBehaviour
 	// this is used to update the speed of the ball in the FixedUpdate() function
 	private bool updateSpeed = false;
 
-	// starting y-value of the ball; can be changed if needed
-	private const float startingYPos = -1.25f;
-
-	// the minimum and maximum x-values that the ball can start in; can be changed if needed
-	private const float minX = -1.0f;
-	private const float maxX = 1.0f;
+	
 
 	// this is used to keep track if the ball needs to be reset to a starting position and then give the
     // ball a velocity; this is used when the player hits space/clicks to start playing with a new ball
@@ -82,21 +105,6 @@ public class CircleMovement : MonoBehaviour
 
 
 
-	// these are the angles used to calculate the ball's updated velocity after it hits the paddle;
-	// the ninetyAngle should be set at 90 degrees for current calculations to function correctly;
-    // the maxAngle is the maximum angle from 90 degrees that the ball can bounce off from the paddle(can be updated to test different angles)
-
-    // they are both displayed in radians since, the Mathf class in unity uses radians
-	private const float maxAngle = 1.0f/3.5f*Mathf.PI;
-	private const float ninetyAngle = 1.0f/2.0f*Mathf.PI;
-
-	// this defines the minimum angle that the ball can bounce off the wall at
-	// this will prevent the ball from bouncing back and forth between walls infinitely
-	private const float minWallAngle = 1.0f/36.0f*Mathf.PI;
-
-
-
-
 	// speed will be the magnitude of velocity in both the x and y directions
 	private float speed = 2.0f;
 
@@ -105,9 +113,7 @@ public class CircleMovement : MonoBehaviour
 	private int xDirection = 1;
 	private int yDirection = -1;
 
-    // constant values to change x velocity to either the left or the right
-	private const int left = -1;
-	private const int right = 1;
+    
 
 	// this is the new velocity of the ball in the x and y directions after it makes contact with 
 	// the paddle
@@ -304,7 +310,7 @@ public class CircleMovement : MonoBehaviour
     		
     		// if speedFactor is less than 2, then check if it needs to be updated; if speedFactor is already 2 then 
     		// it cannot go any higher
-    		if(speedFactor < 2.0f){
+    		if(speedFactor < speedFour){
     			
     			// increment the number of bricks hit by this ball
     			numBricks++;
