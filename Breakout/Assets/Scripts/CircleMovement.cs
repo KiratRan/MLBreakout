@@ -90,13 +90,13 @@ public class CircleMovement : MonoBehaviour
     // ball a velocity; this is used when the player hits space/clicks to start playing with a new ball
 	private bool resetBall = false;
 
-	// this is used to keep track if the ball made contact with the floor and needs to become invisible, 
+	// this is used to keep track if the ball made contact with the floor and needs to become invisible,
     // not collide with objects, and lose its velocity
 	private bool clearBall = false;
 
 	// this is used to tell if the ball collided with the paddle and change the ball's
 	// velocity after the collision
-	private bool paddleCollision = false;
+	public bool paddleCollision = false;
 
 	// this is used to determine if the velocity of teh ball needs to be updated after it hits a wall;
 	// if the angle of the ball hitting the wall is less than minWallAngle, then the speed needs to be updated
@@ -115,7 +115,7 @@ public class CircleMovement : MonoBehaviour
 
     
 
-	// this is the new velocity of the ball in the x and y directions after it makes contact with 
+	// this is the new velocity of the ball in the x and y directions after it makes contact with
 	// the paddle
 	private float newXVel;
 	private float newYVel;
@@ -307,22 +307,23 @@ public class CircleMovement : MonoBehaviour
 
     	// if the ball collides with a brick, determine if the speed needs to be updated
     	else if(col.collider.tag == "Brick" || col.collider.tag == "RedOrange Brick"){
-    		
-    		// if speedFactor is less than 2, then check if it needs to be updated; if speedFactor is already 2 then 
+
+    		// if speedFactor is less than 2, then check if it needs to be updated; if speedFactor is already 2 then
     		// it cannot go any higher
+
     		if(speedFactor < speedFour){
-    			
+
     			// increment the number of bricks hit by this ball
     			numBricks++;
 
-    			// if the ball hit a red or orange brick, then increase speedFactor to 2, and 
+    			// if the ball hit a red or orange brick, then increase speedFactor to 2, and
     			// set newXVel and newYVel to be updated in FixedUpdate()
     			if(col.collider.tag == "RedOrange Brick"){
     				speedFactor = speedFour;
     				updateSpeed = true;
     			}
 
-    			// if the ball has hit 4 bricks, then increase speedFactor to 1.3, and 
+    			// if the ball has hit 4 bricks, then increase speedFactor to 1.3, and
     			// set newXVel and newYVel to be updated in FixedUpdate()
     			else if(numBricks == 4){
 
@@ -330,7 +331,7 @@ public class CircleMovement : MonoBehaviour
     				updateSpeed = true;
     			}
 
-    			// if the ball has hit 12 bricks, then increase speedFactor to 1.6, and 
+    			// if the ball has hit 12 bricks, then increase speedFactor to 1.6, and
     			// set newXVel and newYVel to be updated in FixedUpdate()
     			else if(numBricks == 12){
     				speedFactor = speedThree;
@@ -430,9 +431,9 @@ public class CircleMovement : MonoBehaviour
     }
 
 
-    // This function can be called to enable the sprite renderer and the circle collider for the ball 
+    // This function can be called to enable the sprite renderer and the circle collider for the ball
     // as well as reset the position and velocity of the ball. This is specific to the ball object.
-    void NewBall(){
+    public void NewBall(){
 
     	// get the current score value as a long from the scoreUGUI
         long curVal = Int64.Parse(scoreUGUI.text);
@@ -475,7 +476,7 @@ public class CircleMovement : MonoBehaviour
 
 
     // This function is used to take the current speed of the ball and increase the speed based on the original speed
-    // of the ball. If the original speed of the ball(when it was first put into play) is 2 and the myFactor variable 
+    // of the ball. If the original speed of the ball(when it was first put into play) is 2 and the myFactor variable
     // is 2, then the new speed will be 4. The function takes in a Vector2 object that holds the current speed of the ball
     // in the x and y direstions, a float for the factor to increase the speed by, a reference to a float to hold the
     // new x velocity, and a reference to a float that will hold the new y velocity. The function does not return anything,
@@ -503,7 +504,7 @@ public class CircleMovement : MonoBehaviour
 
 
 	// This function can be used to update the 2D position of a GameObject.
-	// The function takes in a GameObject, a float for the x position, and a float for the 
+	// The function takes in a GameObject, a float for the x position, and a float for the
 	// y position. The function does not return anything.
 	void NewPosition(GameObject obj, float xPos, float yPos){
 
@@ -511,7 +512,7 @@ public class CircleMovement : MonoBehaviour
 	}
 
 
-    // This function can be used to get the 2D position of a GameObject. 
+    // This function can be used to get the 2D position of a GameObject.
     // the function takes in a gameobject as a variable and returns a Vector2
     // that contains the 2D location of the game object.
 	Vector2 CurrentPosition(GameObject obj){
@@ -536,7 +537,7 @@ public class CircleMovement : MonoBehaviour
         // get the current text value as a string from the textmeshprougui
         string curVal = textUGUI.text;
 
-        // calculate the new score by converting the string from the text to a long and adding the 
+        // calculate the new score by converting the string from the text to a long and adding the
         // points variable to it
         long newVal = Int64.Parse(curVal) + (long)change;
 
@@ -570,6 +571,3 @@ public class CircleMovement : MonoBehaviour
 	}
 
 }
-
-
-
