@@ -14,13 +14,6 @@ public class CircleMovement : MonoBehaviour
 	const float speedThree = 1.6f;
 	const float speedFour = 2.0f;
 
-	// starting y-value of the ball; can be changed if needed
-	const float startingYPos = -1.25f;
-
-	// the minimum and maximum x-values that the ball can start in; can be changed if needed
-	const float minX = -1.0f;
-	const float maxX = 1.0f;
-
 	// these are the angles used to calculate the ball's updated velocity after it hits the paddle
 
 	// the ninetyAngle should be set at 90 degrees for current calculations to function correctly;
@@ -57,6 +50,10 @@ public class CircleMovement : MonoBehaviour
     // this is a variable to have balls spawn in constantly if it is set to true, or have balls only
     // spawn in when the player presses spacebar or clicks on the left mouse
     public bool infiniteBalls = false;
+
+    // public variables to change the starting position of the ball to the global positioning system
+    public float startXPos = 0.0f;
+    public float startYPos = -1.25f;
 
 
 
@@ -450,9 +447,9 @@ public class CircleMovement : MonoBehaviour
 		speedFactor = 1.0f;
 
 	    // get a random float between -2, and 2 for the starting position
-    	float startingXPos = UnityEngine.Random.Range(minX, maxX);
+    	float startingXPos = UnityEngine.Random.Range(startXPos - 1, startXPos + 1);
     	// give the ball its new position
-    	NewPosition(gameObject, startingXPos, startingYPos);
+    	NewPosition(gameObject, startingXPos, startYPos);
 
 	    // render the ball, and add the collider
     	sr.enabled = true;
