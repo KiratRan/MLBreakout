@@ -69,12 +69,12 @@ public class CircleMovement : MonoBehaviour
 
 	// this is used to keep track if the ball made contact with the floor and needs to become invisible,
     // not collide with objects, and lose its velocity
-	private bool clearBall = false;
+	public bool clearBall = false;
 
 	// this is used to tell if the ball collided with the paddle and change the ball's
 	// velocity after the collision
 	public bool paddleCollision = false;
-
+	public bool brickCollision = false;
 	// this is used to determine if the velocity of teh ball needs to be updated after it hits a wall;
 	// if the angle of the ball hitting the wall is less than minWallAngle, then the speed needs to be updated
 	// to prevent infinite wall bouncing
@@ -205,6 +205,10 @@ public class CircleMovement : MonoBehaviour
     		rb.velocity = new Vector2(newXVel, newYVel);
     		paddleCollision = false;
     	}
+			else if(brickCollision){
+
+				brickCollision = false;
+			}
     	// if the ball needs to update the speed based on the bricks hit to increase the difficulty enter
     	else if(updateSpeed){
 
@@ -301,7 +305,7 @@ public class CircleMovement : MonoBehaviour
 
     	// if the ball collides with a brick, determine if the speed needs to be updated
     	else if(col.collider.tag == "Brick" || col.collider.tag == "RedOrange Brick"){
-
+				brickCollision = true;
     		// if speedFactor is less than 2, then check if it needs to be updated; if speedFactor is already 2 then
     		// it cannot go any higher
     		if(speedFactor < 2.0f){
@@ -387,7 +391,7 @@ public class CircleMovement : MonoBehaviour
 
     // This function is used to make the ball invisible to the player, make sure that it does not collide with anything,
     // and to reset its velocity to 0
-    void ClearBall(){
+    public void ClearBall(){
 
 	    // stop rendering the ball, and remove its collider
     	sr.enabled = false;
