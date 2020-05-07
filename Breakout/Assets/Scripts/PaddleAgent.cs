@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using MLAgents;
 using MLAgents.Sensors;
+using System;
+using TMPro;
 
 // using these to parse strings and access the TextMeshProUGUI component of an object
 using System;
@@ -14,53 +16,50 @@ public class PaddleAgent : Agent
     Rigidbody2D b;
     public GameObject my_ball;
     CircleMovement ballScript;
+    //BrickProperties brickScript;
     public GameObject the_walls;
+    public GameObject left_wall;
+    public GameObject right_wall;
     public GameObject the_bricks;
-    
-    public GameObject myLives;
-    public GameObject myScore;
 
-    private TextMeshProUGUI scoreUGUI;
-    private TextMeshProUGUI livesUGUI;
+    public GameObject the_reward;
+    private TextMeshProUGUI rewardScore;
+    public float sens = 6.0f;
 
-    private int curScore;
-	private int curLives;
-
-    private float leftWall;
-    private float rightWall;
-
-    private Vector3 paddleStart;
 
 
     // Start is called before the first frame update
     void Start () {
-		rBody = this.gameObject.GetComponent<Rigidbody2D>();
-		ballScript = my_ball.GetComponent<CircleMovement>();
 
-		paddleStart = this.transform.localPosition;
-		leftWall = the_walls.transform.GetChild(0).position.x + the_walls.transform.GetChild(0).gameObject.GetComponent<BoxCollider2D>().bounds.size.x / 2;
-		rightWall = the_walls.transform.GetChild(1).position.x - the_walls.transform.GetChild(1).gameObject.GetComponent<BoxCollider2D>().bounds.size.x / 2;
+      rBody = this.gameObject.GetComponent<Rigidbody2D>();
+      ballScript = my_ball.GetComponent<CircleMovement>();
+      rewardScore = the_reward.GetComponent<TextMeshProUGUI>();
+      //brickScript = the_bricks.GetComponent<BrickProperties>();
+    }
 
-		livesUGUI = myLives.GetComponent<TextMeshProUGUI>();
-		scoreUGUI = myScore.GetComponent<TextMeshProUGUI>();
+    void IncreaseTMProUGUIText(TextMeshProUGUI textUGUI, double change){
 
-		curScore = 0;
-		curLives = 3;
-	}
+        // get the current text value as a string from the textmeshprougui
+        string curVal = textUGUI.text;
+
+        // calculate the new score by converting the string from the text to a long and adding the
+        // points variable to it
+        long newVal = Int64.Parse(curVal) + (long)change;
+
+        // update the text for the textmeshprougui with the new score
+        textUGUI.text = newVal.ToString();
+    }
 
     public override void OnEpisodeBegin()
     {
-    	// reset paddle position, and set velocity to 0
-		this.rBody.velocity = Vector2.zero;
-		this.transform.localPosition = paddleStart;
-
-		// reset the bricks and score
-		ballScript.ResetBricks();
-
-		int val = 3;
-		livesUGUI.text = val.ToString();
-		val = 0;
-		scoreUGUI.text = val.ToString();
+      this.rBody.velocity = Vector2.zero;
+      //Debug.Log("resetBallx " + ballScript.resetBall);
+      //Debug.Log("clearBallx " + ballScript.clearBall);
+      //ballScript.clearBall=true;
+      //ballScript.FixedUpdate();
+      ballScript.ClearBall();
+      ballScript.NewBall();
+      //ballScript.resetBall=true;
 
     }
 
@@ -78,11 +77,18 @@ public class PaddleAgent : Agent
 		float paddleWidth = this.GetComponent<BoxCollider2D>().bounds.size.x;
 		float paddleXLoc = this.transform.position.x;
 
-		//Distance from left wall to paddle
-		sensor.AddObservation(paddleXLoc - (paddleWidth / 2) - leftWall);
 
-		// distance from right wall to paddle
-		sensor.AddObservation(rightWall - (paddleXLoc + (paddleWidth / 2)));
+      //Direction of Ball
+      var heading = my_ball.transform.position - this.transform.position;
+      var distance = heading.magnitude;
+      var direction = heading / distance; // This is now the normalized direction.
+      sensor.AddObservation(direction);
+      sensor.AddObservation(my_ball.transform.position);
+      sensor.AddObservation(this.transform.position);
+
+      //Distance Wall to Paddle
+      sensor.AddObservation(Vector2.Distance(this.transform.position,left_wall.transform.position));
+      sensor.AddObservation(Vector2.Distance(this.transform.position,right_wall.transform.position));
 
 
 		// Target and Agent positions
@@ -98,51 +104,80 @@ public class PaddleAgent : Agent
 		//sensor.AddObservation(my_ball.velocity.y);
     }
 
-    public float speed = 10;
+    public float speed = 0.1f;
     public override void OnActionReceived(float[] vectorAction)
     {
         // Actions, size = 2
         Vector2 controlSignal = Vector2.zero;
         controlSignal.x = vectorAction[0];
-        // Debug.Log("ActionX" + controlSignal.x);
-        // rBody.AddForce(controlSignal * speed);
-        rBody.MovePosition(rBody.position + speed* controlSignal * Time.fixedDeltaTime);
 
+        //Debug.Log("ActionX" + controlSignal.x);
+        //rBody.AddForce(controlSignal * speed);
+        //rBody.MovePosition(rBody.position + controlSignal * Time.fixedDeltaTime);
+        //rBody.MovePosition(rBody.position + controlSignal * speed * Time.fixedDeltaTime);
+        rBody.MovePosition(rBody.position + controlSignal * speed);
 
+        // Rewards
+        //float distanceToTarget = Vector2.Distance(this.transform.position,my_ball.transform.position);
 
-        // give reward for the paddle hitting the ball
+        // Reached target
+        /*
+        if (distanceToTarget < 1.42f)
+        {
+            SetReward(0.3f);
+        }*/
+        //AddReward(0.05f);
+        //IncreaseTMProUGUIText(rewardScore, 0.05);
         if (ballScript.paddleCollision==true)
         {
-          AddReward(0.25f);
+          //SetReward(1.0f);
+          AddReward(30.0f);
+          IncreaseTMProUGUIText(rewardScore, 30);
         }
-        // Ball Fell; give large penalty
-        if (my_ball.transform.position.y < this.transform.position.y)
+        // Ball Fell
+        //if (my_ball.transform.position.y == -0.005)
+        if (ballScript.clearBall==true)
+        //if (my_ball.transform.position.y < this.transform.position.y)
         {
-            AddReward(-10.0f);
+            //SetReward(-10.0f);
+            AddReward(-100.0f);
+            IncreaseTMProUGUIText(rewardScore, -100);
+            EndEpisode();
         }
-        // Ball Moving; give small reward
+        // Ball Moving
+
         if (my_ball.transform.position.y > this.transform.position.y)
         {
-            AddReward(0.25f);
+            AddReward(1.0f);
+            IncreaseTMProUGUIText(rewardScore, 1);
+            //EndEpisode();
         }
 
-        int prevScore = curScore;
-        curScore = Int32.Parse(scoreUGUI.text);
-        // Broke Brick TODO:get brick break function
-        if (curScore != prevScore)
+        if (my_ball.transform.position.y < -10)
         {
-        	float scoreDiff = curScore - prevScore;
-            AddReward(scoreDiff);
+            Debug.Log("Ball Fall Bug");
+            AddReward(-100.0f);
+            IncreaseTMProUGUIText(rewardScore, -100);
+            EndEpisode();
         }
 
-        // end episode when lose all 3 lives, or all bricks are destroyed
-        if(curScore % 448 == 0 && curScore != 0){
-        	EndEpisode();
+        if (my_ball.transform.position.y > 45)
+        {
+            Debug.Log("Ball Roof Bug");
+            //AddReward(-100.0f);
+            //IncreaseTMProUGUIText(rewardScore, -100);
+            EndEpisode();
         }
+        // Broke Brick TODO:get brick break function
+        //if (my_ball.transform.position.y > 8)
+        if (ballScript.brickCollision==true)
+        {
+            AddReward(30.0f);
+            IncreaseTMProUGUIText(rewardScore, 30);
+            //AddReward(10.0f);
+            //IncreaseTMProUGUIText(rewardScore, 10);
+            //EndEpisode();
 
-        curLives = Int32.Parse(livesUGUI.text);
-        if(curLives == 0){
-        	EndEpisode();
         }
 
     }
