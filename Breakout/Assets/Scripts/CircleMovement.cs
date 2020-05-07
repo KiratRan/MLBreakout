@@ -430,7 +430,7 @@ public class CircleMovement : MonoBehaviour
 
     // This function can be called to enable the sprite renderer and the circle collider for the ball
     // as well as reset the position and velocity of the ball. This is specific to the ball object.
-    public void NewBall(){
+    void NewBall(){
 
     	// get the current score value as a long from the scoreUGUI
         long curVal = Int64.Parse(scoreUGUI.text);
@@ -552,7 +552,7 @@ public class CircleMovement : MonoBehaviour
 
     // This function will reset and display all of the bricks that this ball is going to interact with.
     // The function does not have any arguments and does not return anything.
-    void ResetBricks(){
+    public void ResetBricks(){
 
     	// get the BoxCollider2D and SpriteRenderers of all of the Bricks
         Component [] brickColliders = myBricks.GetComponentsInChildren(typeof(BoxCollider2D));

@@ -1994,6 +1994,9 @@ GameObject:
   - component: {fileID: 293953662}
   - component: {fileID: 293953661}
   - component: {fileID: 293953660}
+  - component: {fileID: 293953667}
+  - component: {fileID: 293953666}
+  - component: {fileID: 293953665}
   m_Layer: 0
   m_Name: Paddle
   m_TagString: Paddle
@@ -2125,6 +2128,67 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &293953665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293953659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 10
+  TakeActionsBetweenDecisions: 1
+  offsetStep: 0
+--- !u!114 &293953666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293953659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4af17b59c610f4ce78479550b02df84d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  maxStep: 0
+  my_ball: {fileID: 862204809}
+  the_walls: {fileID: 1887634011}
+  the_bricks: {fileID: 2084154694}
+  myLives: {fileID: 131130493}
+  myScore: {fileID: 2023221829}
+  speed: 10
+--- !u!114 &293953667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293953659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    vectorObservationSize: 8
+    numStackedVectorObservations: 1
+    vectorActionSize: 01000000
+    vectorActionDescriptions: []
+    vectorActionSpaceType: 1
+  m_Model: {fileID: 5022602860645237092, guid: 3f0eaf4eabd687643bff1c4059ca99b1, type: 3}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: Paddle
+  TeamId: 0
+  m_UseChildSensors: 1
 --- !u!1001 &316798872
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5431,7 +5495,10 @@ MonoBehaviour:
   myLives: {fileID: 131130493}
   myBricks: {fileID: 2084154694}
   myScore: {fileID: 2023221829}
-  infiniteBalls: 0
+  infiniteBalls: 1
+  startXPos: 0
+  startYPos: -1.25
+  paddleCollision: 0
 --- !u!50 &862204811
 Rigidbody2D:
   serializedVersion: 4

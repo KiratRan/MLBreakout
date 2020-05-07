@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Single AI.unity
     guid: 484a88a08dac8b749a28cde8b72d40ee
+  - enabled: 1
+    path: Assets/Scenes/Two Player.unity
+    guid: 93a6cadcd0191754497ff0ba8cdff504
   m_configObjects: {}

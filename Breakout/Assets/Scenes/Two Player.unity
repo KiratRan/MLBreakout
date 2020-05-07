@@ -14691,6 +14691,8 @@ MonoBehaviour:
   my_ball: {fileID: 1622549434}
   the_walls: {fileID: 1102104747}
   the_bricks: {fileID: 2055247826}
+  myLives: {fileID: 898965558}
+  myScore: {fileID: 1298682570}
   speed: 10
 --- !u!114 &1155895052
 MonoBehaviour:
@@ -14707,10 +14709,10 @@ MonoBehaviour:
   m_BrainParameters:
     vectorObservationSize: 8
     numStackedVectorObservations: 1
-    vectorActionSize: 02000000
+    vectorActionSize: 01000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 74b04088d7d59465e9c0ac3e742d9d10, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 3f0eaf4eabd687643bff1c4059ca99b1, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: My Behavior
@@ -21121,7 +21123,7 @@ MonoBehaviour:
   myLives: {fileID: 898965558}
   myBricks: {fileID: 2055247826}
   myScore: {fileID: 1298682570}
-  infiniteBalls: 0
+  infiniteBalls: 1
   startXPos: 3.55
   startYPos: -1.25
   paddleCollision: 0
