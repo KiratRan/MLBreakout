@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using MLAgents;
 using MLAgents.Sensors;
-using System;
-using TMPro;
 
 // using these to parse strings and access the TextMeshProUGUI component of an object
 using System;

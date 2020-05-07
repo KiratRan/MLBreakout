@@ -434,7 +434,7 @@ public class CircleMovement : MonoBehaviour
 
     // This function can be called to enable the sprite renderer and the circle collider for the ball
     // as well as reset the position and velocity of the ball. This is specific to the ball object.
-    void NewBall(){
+    public void NewBall(){
 
     	// get the current score value as a long from the scoreUGUI
         long curVal = Int64.Parse(scoreUGUI.text);
