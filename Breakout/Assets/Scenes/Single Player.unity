@@ -10012,7 +10012,11 @@ MonoBehaviour:
   myBricks: {fileID: 425263249}
   myScore: {fileID: 1119065397}
   infiniteBalls: 0
+  startXPos: 0
+  startYPos: -1.25
+  clearBall: 0
   paddleCollision: 0
+  brickCollision: 0
 --- !u!4 &2103935305 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8571554246220249623, guid: 5fa24774873ba394eb12c64630d3e47b,
