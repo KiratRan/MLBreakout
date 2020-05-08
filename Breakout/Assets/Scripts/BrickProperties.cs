@@ -31,6 +31,9 @@ public class BrickProperties : MonoBehaviour
         // reset cumulative scores
         numBricksDestroyed = 0;
         totalPoints = 0;
+
+        //Grabs current scene to reload at game over
+        mainButtons.sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
     }
 
     // Update is called once per frame

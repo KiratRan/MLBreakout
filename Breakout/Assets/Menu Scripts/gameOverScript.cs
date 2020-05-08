@@ -19,7 +19,14 @@ public class gameOverScript : MonoBehaviour
 
     public void startAgain()
     {
-        SceneManager.LoadScene("Single Player");
+        if (mainButtons.sceneName == "")
+        {
+            SceneManager.LoadScene("Main Menu");
+        }
+        else
+        {
+            SceneManager.LoadScene(mainButtons.sceneName);
+        }
     }
 
     public void mainMenu()

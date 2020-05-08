@@ -8,6 +8,7 @@ public class mainButtons : MonoBehaviour
     [SerializeField] public menuIndexer mi;
     [SerializeField] public Animator ani;
     [SerializeField] public int current;
+    public static string sceneName = "";
 
     public void loadScene()
     {
