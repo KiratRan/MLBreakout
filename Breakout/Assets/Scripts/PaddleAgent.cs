@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using MLAgents;
 using MLAgents.Sensors;
+
+// using these to parse strings and access the TextMeshProUGUI component of an object
 using System;
 using TMPro;
 
@@ -17,13 +19,16 @@ public class PaddleAgent : Agent
     public GameObject left_wall;
     public GameObject right_wall;
     public GameObject the_bricks;
+
     public GameObject the_reward;
     private TextMeshProUGUI rewardScore;
     public float sens = 6.0f;
 
 
+
     // Start is called before the first frame update
     void Start () {
+
       rBody = this.gameObject.GetComponent<Rigidbody2D>();
       ballScript = my_ball.GetComponent<CircleMovement>();
       rewardScore = the_reward.GetComponent<TextMeshProUGUI>();
@@ -53,13 +58,23 @@ public class PaddleAgent : Agent
       ballScript.ClearBall();
       ballScript.NewBall();
       //ballScript.resetBall=true;
+
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-      //Distance Ball to Paddle
-      sensor.AddObservation(Vector2.Distance(this.transform.position,my_ball.transform.position));
-      //Debug.Log("Observation" + Vector2.Distance(this.transform.position,my_ball.transform.position));
+		//Distance Ball to Paddle
+		// sensor.AddObservation(Vector2.Distance(this.transform.position,my_ball.transform.position));
+		//Debug.Log("Observation" + Vector2.Distance(this.transform.position,my_ball.transform.position));
+
+		//location of ball and location of paddle
+		sensor.AddObservation(my_ball.transform.localPosition);
+		sensor.AddObservation(this.transform.localPosition);
+
+		// get the width of the paddle and the location of the paddle
+		float paddleWidth = this.GetComponent<BoxCollider2D>().bounds.size.x;
+		float paddleXLoc = this.transform.position.x;
+
 
       //Direction of Ball
       var heading = my_ball.transform.position - this.transform.position;
@@ -73,17 +88,18 @@ public class PaddleAgent : Agent
       sensor.AddObservation(Vector2.Distance(this.transform.position,left_wall.transform.position));
       sensor.AddObservation(Vector2.Distance(this.transform.position,right_wall.transform.position));
 
-      // Target and Agent positions
-      //sensor.AddObservation(my_ball.position);
-      //sensor.AddObservation(this.transform.position);
 
-      // Agent velocity
-      //sensor.AddObservation(rBody.velocity.x);
-      //sensor.AddObservation(rBody.velocity.y);
+		// Target and Agent positions
+		//sensor.AddObservation(my_ball.position);
+		//sensor.AddObservation(this.transform.position);
 
-      // Target velocity
-      //sensor.AddObservation(my_ball.velocity.x);
-      //sensor.AddObservation(my_ball.velocity.y);
+		// Agent velocity
+		//sensor.AddObservation(rBody.velocity.x);
+		//sensor.AddObservation(rBody.velocity.y);
+
+		// Target velocity
+		//sensor.AddObservation(my_ball.velocity.x);
+		//sensor.AddObservation(my_ball.velocity.y);
     }
 
     public float speed = 0.1f;
@@ -92,6 +108,7 @@ public class PaddleAgent : Agent
         // Actions, size = 2
         Vector2 controlSignal = Vector2.zero;
         controlSignal.x = vectorAction[0];
+
         //Debug.Log("ActionX" + controlSignal.x);
         //rBody.AddForce(controlSignal * speed);
         //rBody.MovePosition(rBody.position + controlSignal * Time.fixedDeltaTime);
@@ -158,6 +175,7 @@ public class PaddleAgent : Agent
             //AddReward(10.0f);
             //IncreaseTMProUGUIText(rewardScore, 10);
             //EndEpisode();
+
         }
 
     }
