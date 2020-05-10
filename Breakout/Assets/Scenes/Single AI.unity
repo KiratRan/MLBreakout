@@ -2161,9 +2161,11 @@ MonoBehaviour:
   maxStep: 0
   my_ball: {fileID: 862204809}
   the_walls: {fileID: 1887634011}
+  left_wall: {fileID: 1894036307}
+  right_wall: {fileID: 1380159853}
   the_bricks: {fileID: 2084154694}
-  myLives: {fileID: 131130493}
-  myScore: {fileID: 2023221829}
+  the_reward: {fileID: 2023221829}
+  sens: 6
   speed: 10
 --- !u!114 &293953667
 MonoBehaviour:
@@ -5498,7 +5500,9 @@ MonoBehaviour:
   infiniteBalls: 1
   startXPos: 0
   startYPos: -1.25
+  clearBall: 0
   paddleCollision: 0
+  brickCollision: 0
 --- !u!50 &862204811
 Rigidbody2D:
   serializedVersion: 4
@@ -8192,7 +8196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 359392329}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1258187216
