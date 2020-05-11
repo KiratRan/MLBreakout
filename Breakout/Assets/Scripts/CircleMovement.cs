@@ -552,7 +552,7 @@ public class CircleMovement : MonoBehaviour
 
     // This function will reset and display all of the bricks that this ball is going to interact with.
     // The function does not have any arguments and does not return anything.
-    void ResetBricks(){
+    public void ResetBricks(){
 
     	// get the BoxCollider2D and SpriteRenderers of all of the Bricks
         Component [] brickColliders = myBricks.GetComponentsInChildren(typeof(BoxCollider2D));
