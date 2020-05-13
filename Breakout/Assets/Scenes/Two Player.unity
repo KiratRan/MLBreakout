@@ -14691,11 +14691,11 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   maxStep: 0
   my_ball: {fileID: 1622549434}
-  the_walls: {fileID: 1102104747}
-  left_wall: {fileID: 0}
-  right_wall: {fileID: 0}
+  the_walls: {fileID: 1983424280}
+  left_wall: {fileID: 735533167}
+  right_wall: {fileID: 54812279}
   the_bricks: {fileID: 2055247826}
-  the_reward: {fileID: 0}
+  the_reward: {fileID: 1298682570}
   sens: 1
   speed: 10
 --- !u!114 &1155895052
