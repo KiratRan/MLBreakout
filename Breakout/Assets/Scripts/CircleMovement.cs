@@ -55,6 +55,18 @@ public class CircleMovement : MonoBehaviour
     public float startXPos = 0.0f;
     public float startYPos = -1.25f;
 
+    // create GameObject and AudioSource variables for the sounds to be played
+    public GameObject PaddleSoundObject;
+    public GameObject WallSoundObject;
+    public GameObject FloorSoundObject;
+    public GameObject BrickSoundObject;
+
+    private AudioSource paddleSound;
+    private AudioSource wallSound;
+    private AudioSource floorSound;
+    private AudioSource brickSound;
+
+
 
 
     // this is the TextMeshProUGUI component that will be used to update the number of lives;
@@ -89,12 +101,12 @@ public class CircleMovement : MonoBehaviour
 
 	// this is used to keep track if the ball made contact with the floor and needs to become invisible,
     // not collide with objects, and lose its velocity
-	public bool clearBall = false;
+	private bool clearBall = false;
 
 	// this is used to tell if the ball collided with the paddle and change the ball's
 	// velocity after the collision
-	public bool paddleCollision = false;
-	public bool brickCollision = false;
+	private bool paddleCollision = false;
+	private bool brickCollision = false;
 	// this is used to determine if the velocity of teh ball needs to be updated after it hits a wall;
 	// if the angle of the ball hitting the wall is less than minWallAngle, then the speed needs to be updated
 	// to prevent infinite wall bouncing
@@ -137,6 +149,13 @@ public class CircleMovement : MonoBehaviour
         // get the circular collider 2d component and do not let the ball have a collider
         cc2d = gameObject.GetComponent<CircleCollider2D>();
         cc2d.enabled = false;
+
+        // get the AudioSource components to play the game sounds
+        paddleSound = PaddleSoundObject.GetComponent<AudioSource>();
+        floorSound = FloorSoundObject.GetComponent<AudioSource>();
+        brickSound = BrickSoundObject.GetComponent<AudioSource>();
+        wallSound = WallSoundObject.GetComponent<AudioSource>();
+
     }
 
 
@@ -296,10 +315,16 @@ public class CircleMovement : MonoBehaviour
             // call the BallPaddleCollision() function to update the newXVel and newYVel parameters;
             // these will later be used in the FixedUpdate() function to change the velocity of the ball
             BallPaddleCollision(ballToPaddle, paddleWidth, ballVelMag, ref newXVel, ref newYVel);
+
+            // play sound for bounce off paddle
+            paddleSound.Play();
     	}
 
         // if the ball collides with the floor then set clear ball to true and update lives
     	else if(col.collider.name == "Floor"){
+
+    		// play losing a life cound
+    		floorSound.Play();
     		clearBall = true;
 
             // reduce the value in the livesUGUI text field by one using function
@@ -341,6 +366,9 @@ public class CircleMovement : MonoBehaviour
 
     			UpdateSpeedByFactor(rb.velocity, speedFactor, ref newXVel, ref newYVel);
     		}
+
+    		// play sound for bouncing off brick
+    		brickSound.Play();
     	}
 
     	// determine if the ball hit off the wall at an angle less than minWallAngle radians
@@ -387,6 +415,9 @@ public class CircleMovement : MonoBehaviour
     				newXVel *= left;
     			}
     		}
+
+    		// play sound for bouncing off wall
+    		wallSound.Play();
     	}
     }
 
@@ -407,30 +438,6 @@ public class CircleMovement : MonoBehaviour
         // set the clearBall variable to false
     	clearBall = false;
     }
-
-    // This function is used to calculate the new x and y velocity of the ball when it hits the paddle.
-    // If the ball hits on the left side of the paddle, then it will bounce off to the left. If it
-    // hits on the right side of the paddle it will bounce off to the right. If it hits in the middle, then
-    // the ball will bounce off straight up. The function takes in a float for the distance from the center of the ball
-    // to the center of the paddle, a float for the width of the paddle, a float for the magnitude of the velocity of the ball
-    // before hitting the paddle, a reference to a float to contain the new x velocity, and a reference to a float to contain
-    // the new y velocity. The function does not return anything, but the values of the newXVal and newYVal parameters
-    // will be updated. This function uses linear algebra and trigonometry to calculate the new x and y velocities of the ball.
-    void BallPaddleCollision(float ballToPaddle, float paddleWidth, float ballVelMag, ref float newXVel, ref float newYVel){
-
-        // myVar is used to calculate the angle that the ball will bounce off the paddle;
-        // closer to the paddle will result in myVar equalling 0, and farther from the paddle will result in myVar
-        // equalling 1; myVar is a ratio used to calculate the resulting angle of deflection
-        float myVar = ballToPaddle*2/paddleWidth;
-
-        // using myVar ratio to calculate the new angle that the ball is moving in relative to the paddle
-        float angle = ninetyAngle - (maxAngle*myVar);
-
-        // use the angle and trigonometry to calculate the new x and y velocities of the ball
-        newXVel = Mathf.Cos(angle)* ballVelMag;
-        newYVel = Mathf.Sin(angle)* ballVelMag;
-    }
-
 
     // This function can be called to enable the sprite renderer and the circle collider for the ball
     // as well as reset the position and velocity of the ball. This is specific to the ball object.
@@ -473,6 +480,29 @@ public class CircleMovement : MonoBehaviour
 
     	// update the velocity of the ball
     	rb.velocity = new Vector2(speed*xDirection, speed*yDirection);
+    }
+
+    // This function is used to calculate the new x and y velocity of the ball when it hits the paddle.
+    // If the ball hits on the left side of the paddle, then it will bounce off to the left. If it
+    // hits on the right side of the paddle it will bounce off to the right. If it hits in the middle, then
+    // the ball will bounce off straight up. The function takes in a float for the distance from the center of the ball
+    // to the center of the paddle, a float for the width of the paddle, a float for the magnitude of the velocity of the ball
+    // before hitting the paddle, a reference to a float to contain the new x velocity, and a reference to a float to contain
+    // the new y velocity. The function does not return anything, but the values of the newXVal and newYVal parameters
+    // will be updated. This function uses linear algebra and trigonometry to calculate the new x and y velocities of the ball.
+    void BallPaddleCollision(float ballToPaddle, float paddleWidth, float ballVelMag, ref float newXVel, ref float newYVel){
+
+        // myVar is used to calculate the angle that the ball will bounce off the paddle;
+        // closer to the paddle will result in myVar equalling 0, and farther from the paddle will result in myVar
+        // equalling 1; myVar is a ratio used to calculate the resulting angle of deflection
+        float myVar = ballToPaddle*2/paddleWidth;
+
+        // using myVar ratio to calculate the new angle that the ball is moving in relative to the paddle
+        float angle = ninetyAngle - (maxAngle*myVar);
+
+        // use the angle and trigonometry to calculate the new x and y velocities of the ball
+        newXVel = Mathf.Cos(angle)* ballVelMag;
+        newYVel = Mathf.Sin(angle)* ballVelMag;
     }
 
 
@@ -568,7 +598,20 @@ public class CircleMovement : MonoBehaviour
             ((BoxCollider2D)brickColliders[i]).enabled = true;
             ((SpriteRenderer)brickRenderers[i]).enabled = true;
 		}
+	}
 
+	// This function is a public function to return the value of the paddleCollision
+	// boolean variable. The function does not take any parameters and returns a boolean.
+	public bool GetPaddleCollision(){
+
+		return this.paddleCollision;
+	}
+
+	// This function is a public function to return the value of the clearball
+	// boolean variable. The function does not take any parameters and returns a boolean.
+	public bool GetClearBall(){
+
+		return this.clearBall;
 	}
 
 }
