@@ -14,7 +14,7 @@ public class otherButtons : MonoBehaviour
         switch (current)
         {
             case 0:
-                //leaderboard
+                SceneManager.LoadScene("Leaderboard");
                 break;
             case 1:
                 //credits

@@ -37,6 +37,8 @@ public class leaderboard : MonoBehaviour
                 }
             }
         }
+
+        //Trims list so only 15 remain
         if (highScores.highScoreEntryList.Count > 15)
         {
             for (int i = highScores.highScoreEntryList.Count; i > 15; i--)
@@ -52,6 +54,12 @@ public class leaderboard : MonoBehaviour
             createScoreEntryTransform(scoreEntry, scoreContainer, scoreListTransform);
         }
 
+    }
+
+    //Function for return button
+    public void loadScene()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Other Menu");
     }
 
     //Object to record player and their score
