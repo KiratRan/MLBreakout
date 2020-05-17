@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"count":1,"gauges":{"PaddleBrain.CumulativeReward":{"count":3,"max":2.96999717,"min":-0.180000484,"value":-0.180000484,"weightedAverage":0.4106241}},"self":14.1792752,"total":14.512248,"children":{"AgentSendState":{"count":631,"self":0.042043,"total":0.048046,"children":{"CollectObservations":{"count":64,"self":0.004115,"total":0.004115,"children":null},"CollectDiscreteActionMasks":{"count":64,"self":0.001888,"total":0.001888,"children":null}}},"DecideAction":{"count":631,"self":0.254952,"total":0.254952,"children":null},"AgentAct":{"count":631,"self":0.028574,"total":0.028574,"children":null}}}
+=======
+{"count":1,"gauges":{},"self":42.426051199999996,"total":42.7293988,"children":{"AgentSendState":{"count":1541,"self":0.0800574,"total":0.3013459,"children":{"CollectObservations":{"count":1541,"self":0.2212885,"total":0.2212885,"children":null}}}}}
+>>>>>>> refs/remotes/origin/master

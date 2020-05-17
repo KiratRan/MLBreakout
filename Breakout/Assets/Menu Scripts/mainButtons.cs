@@ -17,10 +17,10 @@ public class mainButtons : MonoBehaviour
                 SceneManager.LoadScene("Single Player");
                 break;
             case 1:
-                //VS. machine
+                SceneManager.LoadScene("Two Player");
                 break;
             case 2:
-                //View machine
+                SceneManager.LoadScene("Single AI");
                 break;
             case 3:
                 SceneManager.LoadScene("Other Menu");
