@@ -2165,6 +2165,7 @@ MonoBehaviour:
   ceiling: {fileID: 1217251301}
   myLives: {fileID: 131130493}
   myScore: {fileID: 2023221829}
+  training: 0
 --- !u!114 &293953667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8453,7 +8454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 359392329}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1258187216
@@ -12292,7 +12293,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.9881268
+  orthographic size: 6.308204
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

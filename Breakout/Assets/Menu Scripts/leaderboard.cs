@@ -17,35 +17,8 @@ public class leaderboard : MonoBehaviour
         //Hides template
         scoreTemplate.gameObject.SetActive(false);
 
-        //Loads current stored scores
-        string currentScores = PlayerPrefs.GetString("scores");
-        highScoreList highScores = JsonUtility.FromJson<highScoreList>(currentScores);
-
-        //scoreEntry newEntry = new scoreEntry { name = "KIR", score = 600000000 };
-        //highScores.highScoreEntryList.Add(newEntry);
-
-        //Bubble sort to order ranks
-        for (int i = 0; i < highScores.highScoreEntryList.Count; i++)
-        {
-            for(int j = i + 1; j < highScores.highScoreEntryList.Count; j++)
-            {
-                if(highScores.highScoreEntryList[j].score > highScores.highScoreEntryList[i].score)
-                {
-                    scoreEntry temp = highScores.highScoreEntryList[i];
-                    highScores.highScoreEntryList[i] = highScores.highScoreEntryList[j];
-                    highScores.highScoreEntryList[j] = temp;
-                }
-            }
-        }
-
-        //Trims list so only 15 remain
-        if (highScores.highScoreEntryList.Count > 15)
-        {
-            for (int i = highScores.highScoreEntryList.Count; i > 15; i--)
-            {
-                highScores.highScoreEntryList.RemoveAt(15);
-            }
-        }
+        //Grabs list of scores
+        highScoreList highScores = getAndSortHighScores();
 
         //Adds values to UI container
         scoreListTransform = new List<Transform>();
@@ -63,20 +36,20 @@ public class leaderboard : MonoBehaviour
     }
 
     //Object to record player and their score
-    [System.Serializable] private class scoreEntry
+    [System.Serializable] public class scoreEntry
     {
         public int score;
         public string name;
     }
 
-    //Need list of objects for JSON manipulation
-    private class highScoreList
+    //List of score objects
+    public class highScoreList
     {
         public List<scoreEntry> highScoreEntryList;
     }
 
-    //Used to create a new entry into the highscore table
-    private void createScore(int score, string name)
+    //Used to create a new entry in the high-score table
+    public static void createScore(int score, string name)
     {
         scoreEntry newEntry = new scoreEntry { score = score, name = name };
 
@@ -86,14 +59,6 @@ public class leaderboard : MonoBehaviour
 
         //Adds new score and saves list
         highScores.highScoreEntryList.Add(newEntry);
-
-        if (highScores.highScoreEntryList.Count > 15)
-        {
-            for(int i = highScores.highScoreEntryList.Count; i > 15; i--)
-            {
-                highScores.highScoreEntryList.RemoveAt(15);
-            }
-        }
         string json = JsonUtility.ToJson(highScores);
         PlayerPrefs.SetString("scores", json);
         PlayerPrefs.Save();
@@ -107,7 +72,7 @@ public class leaderboard : MonoBehaviour
         entryRect.anchoredPosition = new Vector2(0, -150f * entryList.Count);
         entryTransform.gameObject.SetActive(true);
 
-        //Possibly add numerical rank to table
+        //Possibly add numerical rank to table?
 
         //int rank = entryList.Count + 1;
         //string rankstring;
@@ -128,6 +93,58 @@ public class leaderboard : MonoBehaviour
         entryTransform.Find("Background").gameObject.SetActive(entryList.Count % 2 == 0);
 
         entryList.Add(entryTransform);
+    }
+
+    //Returns sorted list of high scores
+    public static highScoreList getAndSortHighScores()
+    {
+        //Loads current stored scores
+        string currentScores = PlayerPrefs.GetString("scores");
+        highScoreList highScores = JsonUtility.FromJson<highScoreList>(currentScores);
+
+        //scoreEntry newEntry = new scoreEntry { name = "KIR", score = 600000000 };
+        //highScores.highScoreEntryList.Add(newEntry);
+
+        //Bubble sort to order ranks
+        for (int i = 0; i < highScores.highScoreEntryList.Count; i++)
+        {
+            for (int j = i + 1; j < highScores.highScoreEntryList.Count; j++)
+            {
+                if (highScores.highScoreEntryList[j].score > highScores.highScoreEntryList[i].score)
+                {
+                    scoreEntry temp = highScores.highScoreEntryList[i];
+                    highScores.highScoreEntryList[i] = highScores.highScoreEntryList[j];
+                    highScores.highScoreEntryList[j] = temp;
+                }
+            }
+        }
+
+        //Trims list so only 15 remain
+        if (highScores.highScoreEntryList.Count > 15)
+        {
+            for (int i = highScores.highScoreEntryList.Count; i > 15; i--)
+            {
+                highScores.highScoreEntryList.RemoveAt(15);
+                if (highScores.highScoreEntryList.Count < 15)
+                {
+                    break;
+                }
+            }
+        }
+
+        return highScores;
+    }
+
+    //Resets the leaderboard
+    public void clearScoreList()
+    {
+        string currentScores = PlayerPrefs.GetString("scores");
+        highScoreList highScores = JsonUtility.FromJson<highScoreList>(currentScores);
+
+        highScores.highScoreEntryList.Clear();
+        string json = JsonUtility.ToJson(highScores);
+        PlayerPrefs.SetString("scores", json);
+        PlayerPrefs.Save();
     }
 }
 
