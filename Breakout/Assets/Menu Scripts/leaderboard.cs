@@ -98,40 +98,55 @@ public class leaderboard : MonoBehaviour
     //Returns sorted list of high scores
     public static highScoreList getAndSortHighScores()
     {
-        //Loads current stored scores
-        string currentScores = PlayerPrefs.GetString("scores");
-        highScoreList highScores = JsonUtility.FromJson<highScoreList>(currentScores);
+        highScoreList highScores;
 
-        //scoreEntry newEntry = new scoreEntry { name = "KIR", score = 600000000 };
-        //highScores.highScoreEntryList.Add(newEntry);
-
-        //Bubble sort to order ranks
-        for (int i = 0; i < highScores.highScoreEntryList.Count; i++)
+        //Makes sure scores key is stored
+        if (PlayerPrefs.HasKey("scores") == false)
         {
-            for (int j = i + 1; j < highScores.highScoreEntryList.Count; j++)
+            //If not, creates new list for scores to be added
+            List<scoreEntry> entryList = new List<scoreEntry>();
+            highScores = new highScoreList { highScoreEntryList = entryList };
+            string json = JsonUtility.ToJson(highScores);
+            PlayerPrefs.SetString("scores", json);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            //Loads current stored scores
+            string currentScores = PlayerPrefs.GetString("scores");
+            highScores = JsonUtility.FromJson<highScoreList>(currentScores);
+
+            //scoreEntry newEntry = new scoreEntry { name = "KIR", score = 600000000 };
+            //highScores.highScoreEntryList.Add(newEntry);
+
+            //Bubble sort to order ranks
+            for (int i = 0; i < highScores.highScoreEntryList.Count; i++)
             {
-                if (highScores.highScoreEntryList[j].score > highScores.highScoreEntryList[i].score)
+                for (int j = i + 1; j < highScores.highScoreEntryList.Count; j++)
                 {
-                    scoreEntry temp = highScores.highScoreEntryList[i];
-                    highScores.highScoreEntryList[i] = highScores.highScoreEntryList[j];
-                    highScores.highScoreEntryList[j] = temp;
+                    if (highScores.highScoreEntryList[j].score > highScores.highScoreEntryList[i].score)
+                    {
+                        scoreEntry temp = highScores.highScoreEntryList[i];
+                        highScores.highScoreEntryList[i] = highScores.highScoreEntryList[j];
+                        highScores.highScoreEntryList[j] = temp;
+                    }
+                }
+            }
+
+            //Trims list so only 15 remain
+            if (highScores.highScoreEntryList.Count > 15)
+            {
+                for (int i = highScores.highScoreEntryList.Count; i > 15; i--)
+                {
+                    highScores.highScoreEntryList.RemoveAt(15);
+                    if (highScores.highScoreEntryList.Count < 15)
+                    {
+                        break;
+                    }
                 }
             }
         }
-
-        //Trims list so only 15 remain
-        if (highScores.highScoreEntryList.Count > 15)
-        {
-            for (int i = highScores.highScoreEntryList.Count; i > 15; i--)
-            {
-                highScores.highScoreEntryList.RemoveAt(15);
-                if (highScores.highScoreEntryList.Count < 15)
-                {
-                    break;
-                }
-            }
-        }
-
+        
         return highScores;
     }
 
