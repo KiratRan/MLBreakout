@@ -29,6 +29,9 @@ public class PaddleAgent : Agent
 	// define variable for the rigid body of the paddle
     private Rigidbody2D rBody;
 
+    // define variable for the box collider of the paddle
+    private BoxCollider2D paddleCollider;
+
     // the script for the ball
     private CircleMovement ballScript;
 
@@ -48,9 +51,8 @@ public class PaddleAgent : Agent
     private float ceilingYPos;
     private float paddleYPos;
 
-    // the radius of the ball, and width of the paddle
+    // the radius of the ball
     private float circleRadius;
-    private float paddleWidth;
 
     // the local position coordinates of the paddle; used to reset the position
     private Vector3 paddleStart;
@@ -75,6 +77,8 @@ public class PaddleAgent : Agent
     	// get the rigidbody of the paddle
 		rBody = gameObject.GetComponent<Rigidbody2D>();
 
+		paddleCollider = gameObject.GetComponent<BoxCollider2D>();
+
 		// get the circle movement script of the ball
 		ballScript = my_ball.GetComponent<CircleMovement>();
 
@@ -84,17 +88,13 @@ public class PaddleAgent : Agent
 		// get the width of the walls
 		float wallWidth = leftWall.GetComponent<BoxCollider2D>().bounds.size.x;
 
-		// get the width of the paddle
-        paddleWidth = gameObject.GetComponent<BoxCollider2D>().bounds.size.x;
-
         // define leftWallXPos and rightWallXPos so that they can be used in observations
         leftWallXPos = leftWall.transform.localPosition.x + wallWidth/2;
         rightWallXPos = rightWall.transform.localPosition.x - wallWidth/2;
 
         // define ceilingYPos and paddleYPos so that they can be used in observations
         ceilingYPos = ceiling.transform.localPosition.y - ceiling.GetComponent<BoxCollider2D>().bounds.size.y / 2;
-        paddleYPos = gameObject.transform.localPosition.y + gameObject.GetComponent<BoxCollider2D>().bounds.size.y / 2;
-
+        paddleYPos = gameObject.transform.localPosition.y + paddleCollider.bounds.size.y / 2;
 
         // get the radius of the ball
         circleRadius = my_ball.GetComponent<CircleCollider2D>().radius;
@@ -127,39 +127,32 @@ public class PaddleAgent : Agent
 	// reset the training environment
     public override void OnEpisodeBegin()
     {
-
-    	// if this.rBody is set to NULL, then call Start() function again to set the variables;
-    	// this is used when reloading a scene
-		if (this.rBody == null){
-    		Start();
-    	}
-
-    	// reset paddle position, and set velocity to 0
-		this.rBody.velocity = Vector2.zero;
-		gameObject.transform.localPosition = paddleStart;
-
-		// if training, clear the ball, spawn a new one, and reset the bricks when the episode begins
+		// if training, then reset the environment for a new episode
 		if(training){
+
+            // if this.rBody is set to NULL, then call Start() function again to set the variables;
+            // this is used when reloading a scene
+            if (this.rBody == null){
+                Start();
+            }
+
+            // reset paddle position, and set velocity to 0
+            this.rBody.velocity = Vector2.zero;
+            gameObject.transform.localPosition = paddleStart;
+
 			// reset the ball
 			this.ballScript.ClearBall();
 			this.ballScript.NewBall();
 
 			// reset the bricks
 			this.ballScript.ResetBricks();
-		}
 
-		// set val to 1 for training and to 3 when setting up for the game
-		int val;
-		if(training){
-			val = 1;
+            // set the number of lives to 0, and the score to 1
+            int val = 1;
+            this.livesUGUI.text = val.ToString();
+            val = 0;
+            this.scoreUGUI.text = val.ToString();
 		}
-		else{
-			val = 3;
-		}
-
-		this.livesUGUI.text = val.ToString();
-		val = 0;
-		this.scoreUGUI.text = val.ToString();
     }
 
 
@@ -174,6 +167,9 @@ public class PaddleAgent : Agent
         // calculate the normalized y position of the ball and add observation
         normalPosBall = Normalize(ceilingYPos, paddleYPos, circleRadius, my_ball.transform.localPosition.y);
         sensor.AddObservation(normalPosBall);
+
+        // get the width of the paddle
+        float paddleWidth = paddleCollider.bounds.size.x;
 
         // calculate the normalized x position of the paddle
         float normalPosPaddle = Normalize(rightWallXPos, leftWallXPos, paddleWidth/2, gameObject.transform.localPosition.x);
@@ -216,23 +212,20 @@ public class PaddleAgent : Agent
             AddReward(scoreDiff/ 10.0f);
         }
 
-        // add penalty for taking another step
-        AddReward(-0.01f);
-
-        // end the episode of all of the bricks are destroyed and the agent is training
+        // end the episode if training and the bricks are destroyed or the player has 0 lives
         if(training){
 
 		    // end episode when lose a live, or all bricks are destroyed
 		    if(curScore % 448 == 0 && curScore != 0){
 		    	EndEpisode();
 		    }
-		}
 
-        // if the lives reaches 0, then end the training episode
-        curLives = Int32.Parse(livesUGUI.text);
-        if(curLives == 0){
-        	EndEpisode();
-        }
+            // if the lives reaches 0, then end the training episode
+            curLives = Int32.Parse(livesUGUI.text);
+            if(curLives == 0){
+                EndEpisode();
+            }
+		}
     }
 
     // This function is to manually control the paddle, instead of the model
