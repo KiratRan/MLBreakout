@@ -58,3 +58,7 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+Breakout/Assets/Scenes/Training.unity
+Breakout/Assets/Scenes/Training.unity.meta
+Breakout/Assets/Scripts/KiratAgent.cs
+Breakout/Assets/Scripts/KiratAgent.cs.meta

@@ -8,6 +8,7 @@ public class mainButtons : MonoBehaviour
     [SerializeField] public menuIndexer mi;
     [SerializeField] public Animator ani;
     [SerializeField] public int current;
+    public static string sceneName = "";
 
     public void loadScene()
     {
@@ -41,7 +42,6 @@ public class mainButtons : MonoBehaviour
             if(Input.GetAxis("Submit") == 1)
             {
                 ani.SetBool("pressed", true);
-                loadScene();
             }
             else if (ani.GetBool("pressed") == true)
             {

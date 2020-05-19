@@ -14,7 +14,7 @@ public class otherButtons : MonoBehaviour
         switch (current)
         {
             case 0:
-                //leaderboard
+                SceneManager.LoadScene("Leaderboard");
                 break;
             case 1:
                 //credits
@@ -35,7 +35,6 @@ public class otherButtons : MonoBehaviour
             if (Input.GetAxis("Submit") == 1)
             {
                 ani.SetBool("pressed", true);
-                loadScene();
             }
             else if (ani.GetBool("pressed") == true)
             {
