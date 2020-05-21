@@ -8,11 +8,18 @@ using TMPro;
 
 using static leaderboard;
 using static BrickProperties;
+using static TwoPlayerStats;
+using static SinglePlayerStats;
 
 public class gameOverScript : MonoBehaviour
 {
+    // get gameobjects for use
     public GameObject endScore;
     public GameObject endBricks;
+    public GameObject machineScore;
+    public GameObject machineBricks;
+    public GameObject playerHeader;
+    public GameObject machineHeader;
     public GameObject highScoreMessage;
     public GameObject inputContainer;
     public GameObject inputName;
@@ -21,38 +28,72 @@ public class gameOverScript : MonoBehaviour
     public GameObject firstMenuOption;
     private string userName;
 
-   
+    // private variable to hold the high score of the player
+    private long playerScore;
+
     void Start()
     {
-        //Hides high-score message
-        highScoreMessage.SetActive(false);
-        inputContainer.SetActive(false);
 
-        //Updates UI with user score and number of bricks destroyed
-        endScore.GetComponent<TextMeshProUGUI>().text = totalPoints.ToString();
-        endBricks.GetComponent<TextMeshProUGUI>().text = numBricksDestroyed.ToString();
+        // if the previous scene was single player or single AI, then use the SinglePlayerStats static variables
+        // for the display and playerScore variable
+        if (mainButtons.sceneName == "Single Player" || mainButtons.sceneName == "Single AI"){
 
-        //Grabs list of high-scores
-        highScoreList highScores = getAndSortHighScores();
+            //Updates UI with user score and number of bricks destroyed
+            endScore.GetComponent<TextMeshProUGUI>().text = SinglePlayerStats.playerScore.ToString();
+            endBricks.GetComponent<TextMeshProUGUI>().text = SinglePlayerStats.playerBricksDestroyed.ToString();
 
-        //List isn't full
-        if (highScores.highScoreEntryList.Count < 15)
-        {
-            showNewScorePrompts();
+            // define playerScore variable
+            playerScore = SinglePlayerStats.playerScore;
         }
-        //List is full
-        else
+
+        // if the previous scene was two player, then update the game over scene to be formatted to display
+        // the scores and bricks destroyed for both players
+		if (mainButtons.sceneName == "Two Player"){
+
+			machineScore.SetActive(true);
+			machineBricks.SetActive(true);
+
+			playerHeader.SetActive(true);
+			machineHeader.SetActive(true);
+
+            // get the player's score and bricks destroyed from the two player stats static variables
+	        endScore.GetComponent<TextMeshProUGUI>().text = TwoPlayerStats.playerScore.ToString();
+	        endBricks.GetComponent<TextMeshProUGUI>().text = TwoPlayerStats.playerBricksDestroyed.ToString();
+
+            // get the machine's score and bricks destroyed from the two player stats static variables
+	        machineScore.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = TwoPlayerStats.machineScore.ToString();
+			machineBricks.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = TwoPlayerStats.machineBricksDestroyed.ToString();
+
+            // define playerScore variable
+            playerScore = TwoPlayerStats.playerScore;
+		}
+
+        // if the current scene is single player, then update the leaderboard
+        if (mainButtons.sceneName == "Single Player" || mainButtons.sceneName == "Two Player")
         {
-            for (int i = 0; i < highScores.highScoreEntryList.Count; i++)
-            {
-                //Creates new high-score and breaks loop to prevent multiple entries
-                if ((int)totalPoints > highScores.highScoreEntryList[i].score)
-                {
-                    showNewScorePrompts();
-                    break;
-                }
-            }
-        }
+            //Grabs list of high-scores
+            highScoreList highScores = getAndSortHighScores();
+
+		    //List isn't full
+		    if (highScores.highScoreEntryList.Count < 15)
+		    {
+		        showNewScorePrompts();
+		    }
+		    //List is full
+		    else
+		    {
+		        for (int i = 0; i < highScores.highScoreEntryList.Count; i++)
+		        {
+		            //Creates new high-score and breaks loop to prevent multiple entries
+		            if (playerScore > highScores.highScoreEntryList[i].score)
+		            {
+		                showNewScorePrompts();
+		                break;
+		            }
+		        }
+		    }
+
+		}
     }
 
     //Allows user to press enter instead of just clicking to submit high-score
@@ -107,7 +148,7 @@ public class gameOverScript : MonoBehaviour
         //For some reason a length of 4 corresponds to 3 entered characters. Counting \0?
         if (userName.Length == 4 && userName.Contains(" ") == false)
         {
-            createScore((int)totalPoints, userName.ToUpper());
+            createScore(playerScore, userName.ToUpper());
 
             //Manipulates visibility of UI elements
             inputContainer.SetActive(false);

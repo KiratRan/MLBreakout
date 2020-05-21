@@ -6,7 +6,9 @@ using UnityEngine;
 using TMPro;
 using System;
 
-public class SinglePlayerScript : MonoBehaviour
+// This script is used to load the Game Over scene for the single player and AI player scenes
+// the Game Over scene will be loaded when the number of lives = 0
+public class SinglePlayerController : MonoBehaviour
 {
 	// the game objects for the lives of the player
 	public GameObject playerLives;
