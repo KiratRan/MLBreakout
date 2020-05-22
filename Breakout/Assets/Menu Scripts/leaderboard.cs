@@ -38,7 +38,7 @@ public class leaderboard : MonoBehaviour
     //Object to record player and their score
     [System.Serializable] public class scoreEntry
     {
-        public int score;
+        public long score;
         public string name;
     }
 
@@ -49,7 +49,7 @@ public class leaderboard : MonoBehaviour
     }
 
     //Used to create a new entry in the high-score table
-    public static void createScore(int score, string name)
+    public static void createScore(long score, string name)
     {
         scoreEntry newEntry = new scoreEntry { score = score, name = name };
 
