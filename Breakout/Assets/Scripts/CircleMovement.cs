@@ -47,9 +47,12 @@ public class CircleMovement : MonoBehaviour
     // this is the game object that contains the score that this ball is going to interact with
     public GameObject myScore;
 
-    // this is a variable to have balls spawn in constantly if it is set to true, or have balls only
-    // spawn in when the player presses spacebar or clicks on the left mouse
+    // this is a variable to have balls spawn infinitely regardless of the number of lives of the player
     public bool infiniteBalls = false;
+
+    // this is a boolean variable that is used to control whether the player has to press space or mouse click
+    // to have a bal spawn in
+    public bool buttonSpawn = true;
 
     // public variables to change the starting position of the ball to the global positioning system
     public float startXPos = 0.0f;
@@ -99,9 +102,8 @@ public class CircleMovement : MonoBehaviour
     // ball a velocity; this is used when the player hits space/clicks to start playing with a new ball
 	private bool resetBall = false;
 
-	// this is used to keep track if the ball made contact with the floor and needs to become invisible,
-    // not collide with objects, and lose its velocity
-	private bool clearBall = false;
+	// this boolean is used to stop rendering the ball, remove its collider, and remove its speed
+    private bool clearBall = false;
 
 	// this is used to tell if the ball collided with the paddle and change the ball's
 	// velocity after the collision
@@ -115,19 +117,23 @@ public class CircleMovement : MonoBehaviour
 
 
 	// speed will be the magnitude of velocity in both the x and y directions
-	private float speed = 2.0f;
+	private float speed = 2.3f;
 
 	// xDirection and yDirection are used to determine the starting velocity of the ball
 	// xDirection will randomly vary from -1 and 1, while yDirection will remain constant
 	private int xDirection = 1;
 	private int yDirection = -1;
 
-    
-
 	// this is the new velocity of the ball in the x and y directions after it makes contact with
 	// the paddle
 	private float newXVel;
 	private float newYVel;
+
+
+
+	// create variables to control the size of the paddle
+	private Vector3 paddleScale;
+	private bool reducePaddle = true;
 
 
 
@@ -156,6 +162,8 @@ public class CircleMovement : MonoBehaviour
         brickSound = BrickSoundObject.GetComponent<AudioSource>();
         wallSound = WallSoundObject.GetComponent<AudioSource>();
 
+        // get the scale of the paddle to easily reset it
+        paddleScale = myPaddle.transform.localScale;
     }
 
 
@@ -166,12 +174,14 @@ public class CircleMovement : MonoBehaviour
     	// if player needs to spawn a ball, then enter
     	if(!infiniteBalls){
 
-			//Load game over screen if lives reach 0, or somehow less than
-	        if(Int32.Parse(livesUGUI.text) <= 0)
-	        {
-	            UnityEngine.SceneManagement.SceneManager.LoadScene("Game Over");
-	        }
+        		//do nothing if the player has 0 lives left
+                if(Int32.Parse(livesUGUI.text) <= 0)
+                {
+                    return;
+                }
+        }
 
+        if(buttonSpawn){
 	    	// check if the space bar or mouse 1 button have been pressed down. if either one has been pressed then enter
 	        if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0)){
 
@@ -212,13 +222,12 @@ public class CircleMovement : MonoBehaviour
     		resetBall = false;
     	}
 
-    	// see if clearBall variable is true
-    	else if(clearBall){
+        // see if clearBall is true, and clear the ball from the screen, if it is
+        if(clearBall){
 
-    		// if it is, then call ClearBall function and set clearBall to false
-    		ClearBall();
-    		clearBall = false;
-    	}
+            clearBall = false;
+            ClearBall();
+        }
 
         // see if paddleCollision variable is true; if it is, then update the velocity
         // using the newXVel and newYVel values already calculated and set paddleCollision to false
@@ -253,7 +262,7 @@ public class CircleMovement : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col){
 
         // if the name of the colliding object matches the name of our paddle, then enter
-    	if(col.collider.name == myPaddle.name){
+    	if(col.collider.name == myPaddle.name && !paddleCollision){
 
     		// get the location of the ball
     		Vector2 ballLocation;
@@ -279,7 +288,6 @@ public class CircleMovement : MonoBehaviour
 				// call the ResetBricks() function
                 ResetBricks();
             }
-
 
             // if the center of the ball is lower than the top surface of the paddle, then ball should be unaffected
             // and will not have unique bounce off the top surface of the paddle
@@ -321,7 +329,7 @@ public class CircleMovement : MonoBehaviour
     	}
 
         // if the ball collides with the floor then set clear ball to true and update lives
-    	else if(col.collider.name == "Floor"){
+    	else if(col.collider.name == "Floor" && !clearBall){
 
     		// play losing a life cound
     		floorSound.Play();
@@ -332,11 +340,12 @@ public class CircleMovement : MonoBehaviour
     	}
 
     	// if the ball collides with a brick, determine if the speed needs to be updated
-    	else if(col.collider.tag == "Brick" || col.collider.tag == "RedOrange Brick"){
-				brickCollision = true;
+    	else if((col.collider.tag == "Brick" || col.collider.tag == "RedOrange Brick") && !brickCollision){
+
+			brickCollision = true;
+
     		// if speedFactor is less than 2, then check if it needs to be updated; if speedFactor is already 2 then
     		// it cannot go any higher
-
     		if(speedFactor < speedFour){
 
     			// increment the number of bricks hit by this ball
@@ -372,7 +381,10 @@ public class CircleMovement : MonoBehaviour
     	}
 
     	// determine if the ball hit off the wall at an angle less than minWallAngle radians
-    	else if(col.collider.tag == "Wall"){
+    	else if(col.collider.tag == "Wall" && !wallCollision){
+
+            // play sound for ball hitting ceiling
+            wallSound.Play();
 
     		// get the magnitude of the speed of the ball
     		float curSpeed = rb.velocity.magnitude;
@@ -416,16 +428,33 @@ public class CircleMovement : MonoBehaviour
     			}
     		}
 
-    		// play sound for bouncing off wall
-    		wallSound.Play();
-    	}
+        }
+
+        else if(col.collider.name == "Ceiling"){
+
+            // play sound for ball hitting ceiling
+            wallSound.Play();
+
+            // if the paddle hasn't already been reduced in size, then reduce it
+            if(reducePaddle){
+
+                // get the current size, and reduce the width of the paddle
+                Vector3 temp = myPaddle.transform.localScale;
+                temp.x /= 1.5f;
+
+                // update the scale of the paddle
+                myPaddle.transform.localScale = temp;
+
+                // set reducePaddle to false, so the size is only reduced one time per ball
+                reducePaddle = false;
+            }
+	    }
     }
 
 
-
-
     // This function is used to make the ball invisible to the player, make sure that it does not collide with anything,
-    // and to reset its velocity to 0
+    // and to reset its velocity to 0 and updates the position. This function will also reset the scale of the paddle
+    // if it has been reduced, and reset the bricks if they have all disappeared.
     public void ClearBall(){
 
 	    // stop rendering the ball, and remove its collider
@@ -435,32 +464,33 @@ public class CircleMovement : MonoBehaviour
         // set the velocity to 0
     	rb.velocity = new Vector2(0.0f, 0.0f);
 
-        // set the clearBall variable to false
-    	clearBall = false;
-    }
-
-    // This function can be called to enable the sprite renderer and the circle collider for the ball
-    // as well as reset the position and velocity of the ball. This is specific to the ball object.
-    public void NewBall(){
-
     	// get the current score value as a long from the scoreUGUI
         long curVal = Int64.Parse(scoreUGUI.text);
 
-	    // if player reached max score for a set of bricks, then reset there are no more bricks and they need to be
+    	// if player reached max score for a set of bricks, then reset there are no more bricks and they need to be
         // reset
         if(curVal % 448 == 0 && curVal != 0){
         	// call the ResetBricks() function
             ResetBricks();
 		}
 
+		// reset the size of the paddle and the reducePaddle boolean
+    	myPaddle.transform.localScale = paddleScale;
+    	reducePaddle = true;
+    }
+
+    // This function can be called to enable the sprite renderer and the circle collider for the ball
+    // and reset the velocity of the ball. 
+    public void NewBall(){
+
 		// reset the variables for the ball's speedFactor
 		numBricks = 0;
 		speedFactor = 1.0f;
 
-	    // get a random float between -2, and 2 for the starting position
-    	float startingXPos = UnityEngine.Random.Range(startXPos - 1, startXPos + 1);
-    	// give the ball its new position
-    	NewPosition(gameObject, startingXPos, startYPos);
+        // get a random float between -2, and 2 for the starting position
+        float startingXPos = UnityEngine.Random.Range(startXPos - 1, startXPos + 1);
+        // give the ball its new position
+        NewPosition(gameObject, startingXPos, startYPos);
 
 	    // render the ball, and add the collider
     	sr.enabled = true;
@@ -613,5 +643,4 @@ public class CircleMovement : MonoBehaviour
 
 		return this.clearBall;
 	}
-
 }

@@ -11,16 +11,19 @@ public class BrickProperties : MonoBehaviour
 
 	// set public variables that can be set in Unity; different blocks will have different
 	// point values and the bricks on either side of two player mode will have a different ball
-	// and different scor objects
+	// and different score objects and bricksHit objects
     public GameObject myBall;
     public GameObject scoreObject;
+    public GameObject bricksHit;
+
     public int points;
-    public static int numBricksDestroyed;
-    public static long totalPoints;
 
     // this is the variable that will hold the TextMeshProUGUI and allows us
     // to access and change the text displayed
     private TextMeshProUGUI ugui;
+
+    // this will be the TexMeshProUGUI whose value will increase by one when a brick is destroyed
+    private TextMeshProUGUI hitsUGUI;
 
     // Start is called before the first frame update
     void Start()
@@ -28,9 +31,7 @@ public class BrickProperties : MonoBehaviour
     	// get the component of the current score object for the ugui
     	ugui = scoreObject.GetComponent<TextMeshProUGUI>();
 
-        // reset cumulative scores
-        numBricksDestroyed = 0;
-        totalPoints = 0;
+        hitsUGUI = bricksHit.GetComponent<TextMeshProUGUI>();
 
         //Grabs current scene to reload at game over
         mainButtons.sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
@@ -39,7 +40,7 @@ public class BrickProperties : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+    	
     }
 
     // after something collides with the brick
@@ -55,7 +56,9 @@ public class BrickProperties : MonoBehaviour
 
     		// call function to update the score on the screen appropriately
     		IncreaseTMProUGUIText(ugui, points);
-            numBricksDestroyed++;
+
+    		// update the number of bricks hit
+            IncreaseTMProUGUIText(hitsUGUI, 1);
     	}
     }
 
@@ -74,6 +77,6 @@ public class BrickProperties : MonoBehaviour
 
     	// update the text for the textmeshprougui with the new score
     	textUGUI.text = newVal.ToString();
-        totalPoints = newVal;
+
     }
 }
