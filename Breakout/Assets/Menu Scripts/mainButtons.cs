@@ -14,7 +14,7 @@ public class mainButtons : MonoBehaviour
 
     private void Start()
     {
-        //Grabs saved volume levels or defaults to max volume if player prefs aren't found
+        //Grabs saved volume levels or defaults to max volume if player prefs aren't found and sets audio levels
         audioMixer.SetFloat("musicVolume", PlayerPrefs.GetFloat("musicVolume", 0));
         audioMixer.SetFloat("sfxVolume", PlayerPrefs.GetFloat("sfxVolume", 0));
     }
