@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class mainButtons : MonoBehaviour
 {
@@ -9,6 +10,14 @@ public class mainButtons : MonoBehaviour
     [SerializeField] public Animator ani;
     [SerializeField] public int current;
     public static string sceneName = "";
+    public AudioMixer audioMixer;
+
+    private void Start()
+    {
+        //Grabs saved volume levels or defaults to max volume if player prefs aren't found
+        audioMixer.SetFloat("musicVolume", PlayerPrefs.GetFloat("musicVolume", 0));
+        audioMixer.SetFloat("sfxVolume", PlayerPrefs.GetFloat("sfxVolume", 0));
+    }
 
     public void loadScene()
     {

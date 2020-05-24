@@ -533,6 +533,7 @@ MonoBehaviour:
   mi: {fileID: 211045083}
   ani: {fileID: 314431388}
   current: 3
+  audioMixer: {fileID: 24100000, guid: df3d086009516294dbc0cae79aeecbbe, type: 2}
 --- !u!1001 &346246146
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -828,6 +829,7 @@ MonoBehaviour:
   mi: {fileID: 211045083}
   ani: {fileID: 346246149}
   current: 0
+  audioMixer: {fileID: 24100000, guid: df3d086009516294dbc0cae79aeecbbe, type: 2}
 --- !u!1 &401133018
 GameObject:
   m_ObjectHideFlags: 0
@@ -1136,6 +1138,7 @@ MonoBehaviour:
   mi: {fileID: 211045083}
   ani: {fileID: 411479868}
   current: 1
+  audioMixer: {fileID: 24100000, guid: df3d086009516294dbc0cae79aeecbbe, type: 2}
 --- !u!1001 &591439997
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1361,6 +1364,7 @@ MonoBehaviour:
   mi: {fileID: 211045083}
   ani: {fileID: 591440000}
   current: 4
+  audioMixer: {fileID: 24100000, guid: df3d086009516294dbc0cae79aeecbbe, type: 2}
 --- !u!1 &600616424
 GameObject:
   m_ObjectHideFlags: 0
@@ -1674,6 +1678,7 @@ MonoBehaviour:
   mi: {fileID: 211045083}
   ani: {fileID: 860622229}
   current: 2
+  audioMixer: {fileID: 24100000, guid: df3d086009516294dbc0cae79aeecbbe, type: 2}
 --- !u!1 &899540027
 GameObject:
   m_ObjectHideFlags: 0
@@ -1700,7 +1705,8 @@ AudioSource:
   m_GameObject: {fileID: 899540027}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1677225309709736915, guid: df3d086009516294dbc0cae79aeecbbe,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 0f34305ea1aa15a47a3b96137a5f6041, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
