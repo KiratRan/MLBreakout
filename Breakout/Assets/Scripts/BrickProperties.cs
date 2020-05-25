@@ -20,10 +20,10 @@ public class BrickProperties : MonoBehaviour
 
     // this is the variable that will hold the TextMeshProUGUI and allows us
     // to access and change the text displayed
-    private TextMeshProUGUI ugui;
+    public TextMeshProUGUI ugui;
 
     // this will be the TexMeshProUGUI whose value will increase by one when a brick is destroyed
-    private TextMeshProUGUI hitsUGUI;
+    public TextMeshProUGUI hitsUGUI;
 
     // Start is called before the first frame update
     void Start()
@@ -31,16 +31,16 @@ public class BrickProperties : MonoBehaviour
     	// get the component of the current score object for the ugui
     	ugui = scoreObject.GetComponent<TextMeshProUGUI>();
 
-        hitsUGUI = bricksHit.GetComponent<TextMeshProUGUI>();
+      hitsUGUI = bricksHit.GetComponent<TextMeshProUGUI>();
 
-        //Grabs current scene to reload at game over
-        mainButtons.sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+      //Grabs current scene to reload at game over
+      mainButtons.sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
     }
 
     // Update is called once per frame
     void Update()
     {
-    	
+
     }
 
     // after something collides with the brick
@@ -49,7 +49,7 @@ public class BrickProperties : MonoBehaviour
     	// if the object that collided has the same name as our ball, then disable
     	// the collider for the brick and stop displaying it on screen
     	if(col.collider.name == myBall.name){
-    		
+
     		// disable components
     		gameObject.GetComponent<SpriteRenderer>().enabled = false;
     		gameObject.GetComponent<BoxCollider2D>().enabled = false;
@@ -58,7 +58,7 @@ public class BrickProperties : MonoBehaviour
     		IncreaseTMProUGUIText(ugui, points);
 
     		// update the number of bricks hit
-            IncreaseTMProUGUIText(hitsUGUI, 1);
+        IncreaseTMProUGUIText(hitsUGUI, 1);
     	}
     }
 
@@ -71,7 +71,7 @@ public class BrickProperties : MonoBehaviour
     	// get the current text value as a string from the textmeshprougui
     	string curVal = textUGUI.text;
 
-    	// calculate the new score by converting the string from the text to a long and adding the 
+    	// calculate the new score by converting the string from the text to a long and adding the
     	// points variable to it
     	long newVal = Int64.Parse(curVal) + (long)change;
 

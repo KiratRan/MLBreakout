@@ -13,7 +13,7 @@ public class pauseScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            if (paused)
+            if (GetPauseStatus())
             {
                 resumeGame();
             }
@@ -25,18 +25,18 @@ public class pauseScript : MonoBehaviour
 
     }
 
-    void pauseGame()
+    public void pauseGame()
     {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
-        paused = true;
+        SetPauseStatus(true);
     }
 
     public void resumeGame()
     {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
-        paused = false;
+        SetPauseStatus(false);
     }
 
     public void mainMenu()
@@ -48,5 +48,15 @@ public class pauseScript : MonoBehaviour
     public void exitGame()
     {
         Application.Quit();
+    }
+
+    public bool GetPauseStatus()
+    {
+      return paused;
+    }
+
+    public void SetPauseStatus(bool p)
+    {
+      paused = p;
     }
 }
