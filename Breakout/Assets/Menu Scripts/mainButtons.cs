@@ -12,12 +12,14 @@ public class mainButtons : MonoBehaviour
     public static string sceneName = "";
     public AudioMixer audioMixer;
 
+    //Adjusts values loaded when game starts
     private void Start()
     {
         //Grabs saved volume levels or defaults to max volume if player prefs aren't found and sets audio levels
         audioMixer.SetFloat("musicVolume", PlayerPrefs.GetFloat("musicVolume", 0));
         audioMixer.SetFloat("sfxVolume", PlayerPrefs.GetFloat("sfxVolume", 0));
         
+        //Adjusts player paddle speed if option is available
         if(PlayerPrefs.HasKey("paddleSpeed") == true)
         {
             int value = PlayerPrefs.GetInt("paddleSpeed");
@@ -32,7 +34,7 @@ public class mainButtons : MonoBehaviour
             }
             else
             {
-                PaddleMovement.sens = 4.0f;
+                PaddleMovement.sens = 6.0f;
             }
 
         }
