@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class pauseScript : MonoBehaviour
 {
-    public static bool paused = false;
+    public static bool paused;
     public GameObject pauseMenuUI;
     public GameObject resumeSelection;
     private GameObject settingsUI;
@@ -20,6 +20,7 @@ public class pauseScript : MonoBehaviour
         settingsButton = GameObject.Find("Settings");
         settingsUI.SetActive(false);
         pauseUI.SetActive(false);
+        paused = false;
     }
 
     // Update is called once per frame
@@ -61,9 +62,9 @@ public class pauseScript : MonoBehaviour
 
     public void settings()
     {
-        pauseMenuUI.SetActive(false);
         settingsUI.SetActive(true);
-        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(MixerController.sliderReference);
+        pauseMenuUI.SetActive(false);
+        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(SettingsController.sliderReference);
     }
 
     public void mainMenu()

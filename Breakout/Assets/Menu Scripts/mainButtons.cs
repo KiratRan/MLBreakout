@@ -17,6 +17,25 @@ public class mainButtons : MonoBehaviour
         //Grabs saved volume levels or defaults to max volume if player prefs aren't found and sets audio levels
         audioMixer.SetFloat("musicVolume", PlayerPrefs.GetFloat("musicVolume", 0));
         audioMixer.SetFloat("sfxVolume", PlayerPrefs.GetFloat("sfxVolume", 0));
+        
+        if(PlayerPrefs.HasKey("paddleSpeed") == true)
+        {
+            int value = PlayerPrefs.GetInt("paddleSpeed");
+
+            if(value == 0)
+            {
+                PaddleMovement.sens = 4.0f;
+            }
+            else if (value == 2)
+            {
+                PaddleMovement.sens = 8.0f;
+            }
+            else
+            {
+                PaddleMovement.sens = 4.0f;
+            }
+
+        }
     }
 
     public void loadScene()

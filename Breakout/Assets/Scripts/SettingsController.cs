@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-public class MixerController : MonoBehaviour
+public class SettingsController : MonoBehaviour
 {
     public AudioMixer audioMixer;
     public GameObject settingsUI;
@@ -12,12 +12,14 @@ public class MixerController : MonoBehaviour
 
     public Slider musicSlider;
     public Slider sfxSlider;
+    public Dropdown speedOption;
 
     private void Awake()
     {
         //Grabs current slider values
         musicSlider.value = PlayerPrefs.GetFloat("musicVolume", 0);
         sfxSlider.value = PlayerPrefs.GetFloat("sfxVolume", 0);
+        speedOption.value = PlayerPrefs.GetInt("paddleSpeed", 1);
 
         //Reference used in pause script
         sliderReference = GameObject.Find("Music Slider");
@@ -52,6 +54,27 @@ public class MixerController : MonoBehaviour
 
         PlayerPrefs.SetFloat("musicVolume", musicVolume);
         PlayerPrefs.SetFloat("sfxVolume", sfxVolume);
+        PlayerPrefs.SetInt("paddleSpeed", speedOption.value);
         PlayerPrefs.Save();
+    }
+
+    //Settings for paddle speed dropdown
+    public void paddleSpeedSelection(int option)
+    {
+        //Slow paddle speed
+        if(option == 0)
+        {
+            PaddleMovement.sens = 4.0f;
+        }
+        //Fast paddle speed
+        else if(option == 2)
+        {
+            PaddleMovement.sens = 8.0f;
+        }
+        //Defaults to normal if other options aren't selected
+        else
+        {
+            PaddleMovement.sens = 6.0f;
+        }
     }
 }
