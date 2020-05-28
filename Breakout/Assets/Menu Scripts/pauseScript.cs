@@ -52,11 +52,16 @@ public class pauseScript : MonoBehaviour
         paused = true;
     }
 
+    //Invoking briefDelay prevents ball from spawning when resume option is pressed with space key
     public void resumeGame()
     {
         pauseMenuUI.SetActive(false);
         UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
         Time.timeScale = 1f;
+        Invoke("briefDelay", .01f);
+    }
+    void briefDelay()
+    {
         paused = false;
     }
 
