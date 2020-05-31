@@ -5941,8 +5941,8 @@ MonoBehaviour:
   myLives: {fileID: 131130493}
   myBricks: {fileID: 2084154694}
   myScore: {fileID: 2023221829}
-  infiniteBalls: 0
-  buttonSpawn: 0
+  infiniteBalls: 1
+  buttonSpawn: 1
   startXPos: 0
   startYPos: -1.25
   PaddleSoundObject: {fileID: 1440090337}
