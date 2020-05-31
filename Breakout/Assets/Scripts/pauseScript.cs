@@ -28,7 +28,7 @@ public class pauseScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            if (paused)
+            if (GetPauseStatus())
             {
                 //Prevents spam from resuming game while settings menu is open
                 if (settingsUI.activeSelf == false)
@@ -44,12 +44,12 @@ public class pauseScript : MonoBehaviour
 
     }
 
-    void pauseGame()
+    public void pauseGame()
     {
         pauseMenuUI.SetActive(true);
         UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(resumeSelection);
         Time.timeScale = 0f;
-        paused = true;
+        SetPauseStatus(true);
     }
 
     //Invoking briefDelay prevents ball from spawning when resume option is pressed with space key
@@ -62,7 +62,7 @@ public class pauseScript : MonoBehaviour
     }
     void briefDelay()
     {
-        paused = false;
+        SetPauseStatus(false);
     }
 
     public void settings()
@@ -81,5 +81,15 @@ public class pauseScript : MonoBehaviour
     public void exitGame()
     {
         Application.Quit();
+    }
+
+    public bool GetPauseStatus()
+    {
+      return paused;
+    }
+
+    public void SetPauseStatus(bool p)
+    {
+      paused = p;
     }
 }
