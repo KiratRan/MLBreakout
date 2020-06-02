@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class mainButtons : MonoBehaviour
 {
@@ -9,6 +10,35 @@ public class mainButtons : MonoBehaviour
     [SerializeField] public Animator ani;
     [SerializeField] public int current;
     public static string sceneName = "";
+    public AudioMixer audioMixer;
+
+    //Adjusts values loaded when game starts
+    private void Start()
+    {
+        //Grabs saved volume levels or defaults to max volume if player prefs aren't found and sets audio levels
+        audioMixer.SetFloat("musicVolume", PlayerPrefs.GetFloat("musicVolume", 0));
+        audioMixer.SetFloat("sfxVolume", PlayerPrefs.GetFloat("sfxVolume", 0));
+        
+        //Adjusts player paddle speed if option is available
+        if(PlayerPrefs.HasKey("paddleSpeed") == true)
+        {
+            int value = PlayerPrefs.GetInt("paddleSpeed");
+
+            if(value == 0)
+            {
+                PaddleMovement.sens = 4.0f;
+            }
+            else if (value == 2)
+            {
+                PaddleMovement.sens = 8.0f;
+            }
+            else
+            {
+                PaddleMovement.sens = 6.0f;
+            }
+
+        }
+    }
 
     public void loadScene()
     {
